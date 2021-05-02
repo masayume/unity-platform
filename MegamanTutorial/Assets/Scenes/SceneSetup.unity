@@ -255,8 +255,8 @@ MonoBehaviour:
   player: {fileID: 646960923}
   tileOffset: 0.25
   offsetPos: {x: 0, y: 0, z: 0}
-  boundsMin: {x: 0, y: 0, z: 0}
-  boundsMax: {x: 0, y: 0, z: 0}
+  boundsMin: {x: 0.75, y: 0, z: 0}
+  boundsMax: {x: 3.08, y: 0.17, z: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 646960926}
   - component: {fileID: 646960925}
   - component: {fileID: 646960924}
+  - component: {fileID: 646960928}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -434,7 +435,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 82c1208cf23ce5632acb05db8c9642e5, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 0
   m_CollisionDetection: 1
@@ -465,6 +466,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.18980926, y: 0.22537875}
   m_EdgeRadius: 0
+--- !u!114 &646960928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646960922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5b4dbf387ba7a83781fa4d2208e0c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1213507807
 GameObject:
   m_ObjectHideFlags: 0
