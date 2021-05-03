@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
         }
-        // draw debug lines, visible in the Scene (green: touches; red: no touch)
+        // raycast draw debug lines, visible in the Scene (green: touches; red: no touch)
         raycastColor = (isGrounded) ? Color.green : Color.red;
         Debug.DrawRay(box_origin + new Vector3(box2d.bounds.extents.x, 0), Vector2.down * (box2d.bounds.extents.y / 4f + raycastDistance), raycastColor);
         Debug.DrawRay(box_origin - new Vector3(box2d.bounds.extents.x, 0), Vector2.down * (box2d.bounds.extents.y / 4f + raycastDistance), raycastColor);
@@ -57,13 +57,42 @@ public class PlayerController : MonoBehaviour
     {
         keyHorizontal = Input.GetAxisRaw("Horizontal");
         keyJump = Input.GetKeyDown(KeyCode.Space);
+        keyShoot = Input.GetKeyDown(KeyCode.C);
+
         rb2d.velocity = new Vector2(keyHorizontal * moveSpeed, rb2d.velocity.y);
 
-        if (keyJump)
+        if (keyHorizontal < 0) // pressing LEFT
         {
+            animator.Play("Player_Run");
+            rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
+
+        }
+        else if (keyHorizontal > 0) // pressing RIGHT
+        {
+            animator.Play("Player_Run");
+            rb2d.velocity = new Vector2(moveSpeed, rb2d.velocity.y);
+        }
+        else 
+        {
+            if (isGrounded) 
+            {
+                animator.Play("Player_Idle");
+            }
+            rb2d.velocity = new Vector2(0f, rb2d.velocity.y);
+
+        }
+
+        if (keyJump && isGrounded) // only jump if isGrounded
+        {
+            animator.Play("Player_Jump");
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpSpeed);
         }
 
+        if (!isGrounded) // falling
+        {
+            animator.Play("Player_Jump");
+
+        }
 
     }
 }
