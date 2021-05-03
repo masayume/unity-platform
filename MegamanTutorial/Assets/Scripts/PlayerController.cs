@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     bool isShooting;
     bool isFacingRight; // default facing for static assets, must be initialized
 
+    float shootTime;
+    bool keyShootRelease;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,28 +58,75 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerDirectionInput();
+        PlayerShootinput();
+        PlayerMovement();
+
+    }
+
+    void PlayerDirectionInput()
+    {
         keyHorizontal = Input.GetAxisRaw("Horizontal");
         keyJump = Input.GetKeyDown(KeyCode.Space);
         keyShoot = Input.GetKeyDown(KeyCode.C);
+        isShooting = keyShoot;
 
         rb2d.velocity = new Vector2(keyHorizontal * moveSpeed, rb2d.velocity.y);
+    }
 
+    void PlayerMovement()
+    {
         if (keyHorizontal < 0) // pressing LEFT
         {
-            animator.Play("Player_Run");
+            if (isFacingRight)
+            {
+                Flip();
+            }
+            if (isGrounded) 
+            {
+                if (isShooting)
+                {
+                    animator.Play("Player_RunShoot");
+                }
+                else 
+                {
+                    animator.Play("Player_Run");
+                }
+            }
             rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
 
         }
         else if (keyHorizontal > 0) // pressing RIGHT
         {
-            animator.Play("Player_Run");
+            if (!isFacingRight)
+            {
+                Flip();
+            }
+            if (isGrounded) 
+            {
+                if (isShooting)
+                {
+                    animator.Play("Player_RunShoot");
+                }
+                else 
+                {
+                    animator.Play("Player_Run");
+                }
+            }
             rb2d.velocity = new Vector2(moveSpeed, rb2d.velocity.y);
         }
-        else 
+        else // nothing pressed
         {
             if (isGrounded) 
             {
-                animator.Play("Player_Idle");
+                if (isShooting)
+                {
+                    animator.Play("Player_Shoot");
+                }
+                else 
+                {
+                    animator.Play("Player_Idle");
+                }
             }
             rb2d.velocity = new Vector2(0f, rb2d.velocity.y);
 
@@ -84,15 +134,70 @@ public class PlayerController : MonoBehaviour
 
         if (keyJump && isGrounded) // only jump if isGrounded
         {
-            animator.Play("Player_Jump");
+            if (isShooting)
+            {
+                animator.Play("Player_Shoot");
+            }
+            else 
+            {
+                animator.Play("Player_Jump");
+            }
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpSpeed);
         }
 
         if (!isGrounded) // falling
         {
-            animator.Play("Player_Jump");
+            if (isShooting)
+            {
+                animator.Play("Player_JumpShoot");
+            }
+            else 
+            {
+                animator.Play("Player_Jump");
+            }
 
         }
 
     }
+
+    void PlayerShootinput()
+    {
+        float shootTimeLength;
+        float keyShootReleaseTimeLength = 0;
+
+        if (keyShoot && keyShootRelease)
+        {
+            isShooting = true;
+            keyShootRelease = false;
+            shootTime = Time.time;
+            // shoot Bullet
+
+        }
+
+        if (!keyShoot && !keyShootRelease)
+        {
+            keyShootReleaseTimeLength = Time.time - shootTime;
+            keyShootRelease = true;
+        }
+
+        if (isShooting)
+        {
+            shootTimeLength = Time.time - shootTime;
+            // how long the shooting happen for  and how long the key was pressed for
+            if (shootTimeLength >= 0.25f || keyShootReleaseTimeLength >= 0.15)
+            {
+                isShooting = false;
+            }
+        }
+    }
+
+
+    void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        transform.Rotate(0f, 180f, 0f);
+    }
+
+
+
 }
