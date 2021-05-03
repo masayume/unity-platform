@@ -34,7 +34,7 @@ TextureImporter:
     second: Player_9
   - first:
       213: -3287367053296241113
-    second: Player_10
+    second: Player_Hit
   - first:
       213: -5319882733741912588
     second: Player_11
@@ -535,7 +535,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_10
+      name: Player_Hit
       rect:
         serializedVersion: 2
         x: 6
