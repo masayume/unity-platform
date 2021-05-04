@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
+    Animator animator;
     Rigidbody2D rb2d;
     SpriteRenderer sprite;
 
@@ -17,6 +18,7 @@ public class BulletScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
     }
@@ -67,7 +69,7 @@ public class BulletScript : MonoBehaviour
             {
                 enemy.TakeDamage(this.damage);
             }
-            
+
             Destroy(gameObject, 0.01f); // slight delay    
         }
         
