@@ -192,6 +192,8 @@ public class PlayerController : MonoBehaviour
             
             ShootBullet(); // shoot Bullet
 
+            // Invoke("ShootBullet", 0.1f); // delay shooting with coroutines
+
         }
 
         if (!keyShoot && !keyShootRelease)
