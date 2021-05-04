@@ -18,10 +18,9 @@ public class EnemyController : MonoBehaviour
         currentHealth = maxHealth;   
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Invincible(bool invincibility)
     {
-        
+        isInvincible = invincibility;
     }
 
     public void TakeDamage(int damage)
@@ -46,7 +45,10 @@ public class EnemyController : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other) { 
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player Hit");
+            // Debug.Log("Player Hit");
+            PlayerController player = other.gameObject.GetComponent<PlayerController>();
+            player.HitSide(transform.position.x > player.transform.position.x);
+            player.TakeDamage(this.contactDamage);
         }
     }
 

@@ -14,10 +14,15 @@ public class PlayerController : MonoBehaviour
     bool keyShoot;
     bool isGrounded;
     bool isShooting;
+    bool isTakingDamage;
+    bool isInvincible;
     bool isFacingRight; // default facing for static assets, must be initialized
-
+    bool hitSideRight; // the side where player is hit
     float shootTime;
     bool keyShootRelease;
+
+    public int currentHealth;
+    public int maxHealth = 28;
 
     [SerializeField] float moveSpeed = 3f;
     [SerializeField] float jumpSpeed = 5f;
@@ -38,6 +43,8 @@ public class PlayerController : MonoBehaviour
         box2d = GetComponent<BoxCollider2D>();
 
         isFacingRight = true;
+
+        currentHealth = maxHealth;
     }
 
     private void FixedUpdate() {
@@ -68,6 +75,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isTakingDamage)
+        {
+            animator.Play("Player_Hit");
+            return;
+        }
+
         PlayerDirectionInput();
         PlayerJumpInput();
         PlayerShootinput();
@@ -228,5 +241,62 @@ public class PlayerController : MonoBehaviour
         bullet.GetComponent<BulletScript>().SetBulletDirection((isFacingRight) ? Vector2.right : Vector2.left);
         bullet.GetComponent<BulletScript>().Shoot();
     }
+
+    public void HitSide(bool rightSide)
+    {
+        hitSideRight = rightSide; 
+    }
+
+    public void Invincible(bool invincibility)
+    {
+        isInvincible = invincibility;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (!isInvincible)
+        {
+            currentHealth -= damage;
+            Mathf.Clamp(currentHealth, 0, maxHealth);
+            if (currentHealth <= 0)
+            {
+                Defeat();
+            }
+            else
+            {
+                StartDamageAnimation();
+            }
+        }
+    }
+
+    void StartDamageAnimation()
+    {
+        if (!isTakingDamage)
+        {
+            isTakingDamage = true;
+            isInvincible = true;
+            float hitForceX = 0.50f;
+            float hitForceY = 1.5f;
+            if (hitSideRight) hitForceX = -hitForceX;
+            rb2d.velocity = Vector2.zero;
+            rb2d.AddForce(new Vector2(hitForceX, hitForceY), ForceMode2D.Impulse);
+
+        }
+    }
+
+    void StopDamageAnimation()
+    {
+        isTakingDamage = false;
+        isInvincible = false;
+        animator.Play("Player_Hit", -1, 0f);
+
+    }
+
+    void Defeat()
+    {
+        Destroy(gameObject);
+    }
+
+
 
 }
