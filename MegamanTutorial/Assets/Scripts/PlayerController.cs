@@ -7,8 +7,7 @@ public class PlayerController : MonoBehaviour
     Animator animator; // to control animations
     BoxCollider2D box2d; // to control jump
     Rigidbody2D rb2d;
-    [SerializeField] float moveSpeed = 3f;
-    [SerializeField] float jumpSpeed = 5f;
+
 
     float keyHorizontal;
     bool keyJump;
@@ -19,6 +18,17 @@ public class PlayerController : MonoBehaviour
 
     float shootTime;
     bool keyShootRelease;
+
+    [SerializeField] float moveSpeed = 3f;
+    [SerializeField] float jumpSpeed = 5f;
+
+    [SerializeField] int bulletDamage = 1;
+
+    [SerializeField] float bulletSpeed = 5;
+
+    [SerializeField] Transform bulletShootPos;
+
+    [SerializeField] GameObject bulletPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -59,19 +69,26 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerDirectionInput();
+        PlayerJumpInput();
         PlayerShootinput();
         PlayerMovement();
 
     }
 
-    void PlayerDirectionInput()
+    void PlayerJumpInput()
     {
-        keyHorizontal = Input.GetAxisRaw("Horizontal");
         keyJump = Input.GetKeyDown(KeyCode.Space);
-        keyShoot = Input.GetKeyDown(KeyCode.C);
+
         isShooting = keyShoot;
 
         rb2d.velocity = new Vector2(keyHorizontal * moveSpeed, rb2d.velocity.y);
+    }
+
+    void PlayerDirectionInput()
+    {
+        keyHorizontal = Input.GetAxisRaw("Horizontal");
+
+
     }
 
     void PlayerMovement()
@@ -165,12 +182,15 @@ public class PlayerController : MonoBehaviour
         float shootTimeLength;
         float keyShootReleaseTimeLength = 0;
 
+        keyShoot = Input.GetKeyDown(KeyCode.C);
+
         if (keyShoot && keyShootRelease)
         {
             isShooting = true;
             keyShootRelease = false;
             shootTime = Time.time;
-            // shoot Bullet
+            
+            ShootBullet(); // shoot Bullet
 
         }
 
@@ -198,6 +218,13 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(0f, 180f, 0f);
     }
 
-
+    void ShootBullet()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, bulletShootPos.position, Quaternion.identity);
+        bullet.GetComponent<BulletScript>().SetDamageValue(bulletDamage);
+        bullet.GetComponent<BulletScript>().SetBulletSpeed(bulletSpeed);
+        bullet.GetComponent<BulletScript>().SetBulletDirection((isFacingRight) ? Vector2.right : Vector2.left);
+        bullet.GetComponent<BulletScript>().Shoot();
+    }
 
 }
