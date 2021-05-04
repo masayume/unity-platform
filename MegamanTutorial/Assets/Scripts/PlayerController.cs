@@ -258,6 +258,7 @@ public class PlayerController : MonoBehaviour
         {
             currentHealth -= damage;
             Mathf.Clamp(currentHealth, 0, maxHealth);
+            UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
             if (currentHealth <= 0)
             {
                 Defeat();
