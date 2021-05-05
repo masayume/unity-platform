@@ -364,16 +364,16 @@ TextureImporter:
     second: NES_megaman1_enemies_119
   - first:
       213: 1905420641962833372
-    second: NES_megaman1_enemies_120
+    second: Explode1
   - first:
       213: -7366884386083818611
-    second: NES_megaman1_enemies_121
+    second: Explode2
   - first:
       213: -4828031899713449294
-    second: NES_megaman1_enemies_122
+    second: Explode3
   - first:
       213: -5401397452797526471
-    second: NES_megaman1_enemies_123
+    second: Explode4
   - first:
       213: -7546013581096668113
     second: NES_megaman1_enemies_124
@@ -3022,7 +3022,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_120
+      name: Explode1
       rect:
         serializedVersion: 2
         x: 41
@@ -3043,7 +3043,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_121
+      name: Explode2
       rect:
         serializedVersion: 2
         x: 47
@@ -3064,7 +3064,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_122
+      name: Explode3
       rect:
         serializedVersion: 2
         x: 65
@@ -3085,7 +3085,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_123
+      name: Explode4
       rect:
         serializedVersion: 2
         x: 79

@@ -1290,6 +1290,7 @@ GameObject:
   - component: {fileID: 1772854672}
   - component: {fileID: 1772854671}
   - component: {fileID: 1772854673}
+  - component: {fileID: 1772854674}
   m_Layer: 9
   m_Name: Pepe
   m_TagString: Enemy
@@ -1422,9 +1423,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6471e964e753f561fb55c220b739faed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
+  currentHealth: 1
   maxHealth: 1
   contactDamage: 5
+  explosionDamage: 0
+  explodeEffectPrefab: {fileID: 1149562594513200641, guid: 61a3edf2285ee2f43b876f5698001992, type: 3}
+--- !u!95 &1772854674
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772854668}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d82efee3453b24176a3ffae5e58bf97a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1837220737
 GameObject:
   m_ObjectHideFlags: 0

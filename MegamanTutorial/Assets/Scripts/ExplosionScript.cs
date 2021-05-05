@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class ExplosionScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    int damage = 0;
+    
+    public void SetDamageValue(int damage)
     {
-        
+        this.damage = damage;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerStay2D(Collider2D other) 
     {
-        
+        if (this.damage > 0)
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                PlayerController player = other.gameObject.GetComponent<PlayerController>();
+                player.HitSide(transform.position.x > player.transform.position.x); // explosion x is greater: right side
+                player.TakeDamage(this.damage);
+            }
+        }    
     }
+
+
+
 }
