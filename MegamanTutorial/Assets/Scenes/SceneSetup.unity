@@ -383,7 +383,7 @@ MonoBehaviour:
   currentHealth: 1
   maxHealth: 1
   contactDamage: 5
-  explosionDamage: 5
+  explosionDamage: 50
   explodeEffectPrefab: {fileID: 5104355324369400239, guid: a9ef3ca170c86cc00bff71bc1fb52e0f, type: 3}
 --- !u!50 &268878238
 Rigidbody2D:
@@ -1113,6 +1113,7 @@ MonoBehaviour:
   bulletSpeed: 5
   bulletShootPos: {fileID: 988570985}
   bulletPrefab: {fileID: 3348461588405848329, guid: c6826f56ddfcb3dc295195186c4e4105, type: 3}
+  explodeEffectPrefab: {fileID: 4350803697917524073, guid: cba58d95085ae524d9aa91fdbbbdee8b, type: 3}
 --- !u!1 &893862327
 GameObject:
   m_ObjectHideFlags: 0

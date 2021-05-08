@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     Animator animator; // to control animations
     BoxCollider2D box2d; // to control jump
     Rigidbody2D rb2d;
-
+    SpriteRenderer sprite; // explosion from the center of the sprite
 
     float keyHorizontal;
     bool keyJump;
@@ -35,12 +35,15 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] GameObject bulletPrefab;
 
+    [SerializeField] GameObject explodeEffectPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         box2d = GetComponent<BoxCollider2D>();
+        sprite = GetComponent<SpriteRenderer>();
 
         isFacingRight = true;
 
@@ -81,11 +84,32 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        PlayerDebugInput();
         PlayerDirectionInput();
         PlayerJumpInput();
         PlayerShootinput();
         PlayerMovement();
 
+    }
+
+    void PlayerDebugInput()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            StartDefeatAnimation();
+            Debug.Log("Start Defeat Animation");
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Invincible(!isInvincible);
+            Debug.Log("Invincible: " + isInvincible);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("Paused");
+        }
     }
 
     void PlayerJumpInput()
@@ -293,9 +317,17 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void StartDefeatAnimation()
+    {
+        GameObject explodeEffect = Instantiate(explodeEffectPrefab);
+        explodeEffect.name = explodeEffectPrefab.name;
+        explodeEffect.transform.position = sprite.bounds.center;
+        Destroy(gameObject);
+    }
+
     void Defeat()
     {
-        Destroy(gameObject);
+        Invoke("StartDefeatAnimation", 0.5f);
     }
 
 
