@@ -48,6 +48,7 @@ public class EnemyController : MonoBehaviour
         {
             currentHealth -= damage;
             Mathf.Clamp(currentHealth, 0, maxHealth);
+            Debug.Log("TakeDamage");
             if (currentHealth <= 0)
             {
                 Defeat();

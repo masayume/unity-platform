@@ -1427,7 +1427,7 @@ MonoBehaviour:
   maxHealth: 1
   contactDamage: 5
   explosionDamage: 0
-  explodeEffectPrefab: {fileID: 1149562594513200641, guid: 61a3edf2285ee2f43b876f5698001992, type: 3}
+  explodeEffectPrefab: {fileID: 2512387075661365191, guid: 61a3edf2285ee2f43b876f5698001992, type: 3}
 --- !u!95 &1772854674
 Animator:
   serializedVersion: 3
@@ -1436,7 +1436,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1772854668}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: d82efee3453b24176a3ffae5e58bf97a, type: 2}
   m_CullingMode: 0
