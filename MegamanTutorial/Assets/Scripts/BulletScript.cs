@@ -9,6 +9,8 @@ public class BulletScript : MonoBehaviour
     SpriteRenderer sprite;
 
     float destroyTime;
+    bool freezeBullet;
+    RigidbodyConstraints2D rb2dConstraints;
     public int damage = 1;
 
     [SerializeField] float bulletSpeed;
@@ -26,6 +28,8 @@ public class BulletScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (freezeBullet) return;
+
         destroyTime -= Time.deltaTime;
         if (destroyTime < 0)
         {
@@ -58,6 +62,25 @@ public class BulletScript : MonoBehaviour
         sprite.flipX = (bulletDirection.x < 0); // true = right; false = left 
         rb2d.velocity = bulletDirection * bulletSpeed;
         destroyTime = destroyDelay;
+    }
+
+    public void FreezeBullet(bool freeze)
+    {
+        if (freeze)
+        {
+            freezeBullet = true;
+            rb2dConstraints = rb2d.constraints;
+            animator.speed = 0;
+            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+            rb2d.velocity = Vector2.zero;
+        }
+        else
+        {
+            freezeBullet = false;
+            animator.speed = 1;
+            rb2d.constraints = rb2dConstraints;
+            rb2d.velocity = bulletDirection * bulletSpeed;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {

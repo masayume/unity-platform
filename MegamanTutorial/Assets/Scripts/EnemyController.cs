@@ -19,6 +19,9 @@ public class EnemyController : MonoBehaviour
     bool isInvincible; // flag for enemies that don't take damage
 
     GameObject explodeEffect;
+
+    RigidbodyConstraints2D rb2dConstraints;
+    public bool freezeEnemy;
     public int currentHealth;
     public int maxHealth = 1;
     public int contactDamage = 1;
@@ -73,6 +76,25 @@ public class EnemyController : MonoBehaviour
     {
         StartDefeatAnimation();
         Destroy(gameObject);
+    }
+
+    public void FreezeEnemy(bool freeze)
+    {
+        if (freeze)
+        {
+            freezeEnemy = true;
+            animator.speed = 0;
+            rb2dConstraints = rb2d.constraints;
+            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+            rb2d.velocity = Vector2.zero;
+        }
+        else
+        {
+            freezeEnemy = false;
+            animator.speed = 1;
+            rb2d.constraints = rb2dConstraints;
+            // ?? rb2d.velocity = bulletDirection * bulletSpeed;
+        }       
     }
 
     // track player continuos collide with enemy

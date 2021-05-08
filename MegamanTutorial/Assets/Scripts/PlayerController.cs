@@ -18,8 +18,14 @@ public class PlayerController : MonoBehaviour
     bool isInvincible;
     bool isFacingRight; // default facing for static assets, must be initialized
     bool hitSideRight; // the side where player is hit
+
+    bool freezeInput;
+    bool freezePlayer;
+    bool freezeBullets; // player related
     float shootTime;
     bool keyShootRelease;
+
+    RigidbodyConstraints2D rb2dConstraints;
 
     public int currentHealth;
     public int maxHealth = 28;
@@ -94,39 +100,70 @@ public class PlayerController : MonoBehaviour
 
     void PlayerDebugInput()
     {
+        // B for Bullets
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
+            if (bullets.Length > 0)
+            {
+                freezeBullets = !freezeBullets;
+                foreach (GameObject bullet in bullets)
+                {
+                    bullet.GetComponent<BulletScript>().FreezeBullet(freezeBullets);
+                }
+            }
+            Debug.Log("Freeze Bullets: " + freezeBullets);
+        }
+
+        // E for Explosions
         if (Input.GetKeyDown(KeyCode.E))
         {
             StartDefeatAnimation();
             Debug.Log("Start Defeat Animation");
         }
 
+        // I for Invincible
         if (Input.GetKeyDown(KeyCode.I))
         {
             Invincible(!isInvincible);
             Debug.Log("Invincible: " + isInvincible);
         }
 
+        // K for Keyboard
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            FreezeInput(!freezeInput);
+            Debug.Log("Freeze Input: " + freezeInput);
+        }
+
+        // P for Player
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("Paused");
+            FreezePlayer(!freezePlayer);
+            Debug.Log("Freeze Player: " + freezePlayer);
+        }
+    }
+
+    void PlayerDirectionInput()
+    {
+        if (!freezeInput)
+        {
+        keyHorizontal = Input.GetAxisRaw("Horizontal");
+
         }
     }
 
     void PlayerJumpInput()
     {
-        keyJump = Input.GetKeyDown(KeyCode.Space);
+        // get keyboard input
+        if (!freezeInput)
+        {
+            keyJump = Input.GetKeyDown(KeyCode.Space);
+        }
 
-        isShooting = keyShoot;
-
-        rb2d.velocity = new Vector2(keyHorizontal * moveSpeed, rb2d.velocity.y);
+        // rb2d.velocity = new Vector2(keyHorizontal * moveSpeed, rb2d.velocity.y);
     }
 
-    void PlayerDirectionInput()
-    {
-        keyHorizontal = Input.GetAxisRaw("Horizontal");
-
-
-    }
 
     void PlayerMovement()
     {
@@ -216,34 +253,35 @@ public class PlayerController : MonoBehaviour
 
     void PlayerShootinput()
     {
-        float shootTimeLength;
+        float shootTimeLength = 0;
         float keyShootReleaseTimeLength = 0;
 
-        keyShoot = Input.GetKeyDown(KeyCode.C);
+        // get keyboard input
+        if (!freezeInput)
+        {
+            keyShoot = Input.GetKey(KeyCode.C);
+        }
 
+        // shoot key is being pressed and key release flag true
         if (keyShoot && keyShootRelease)
         {
             isShooting = true;
             keyShootRelease = false;
             shootTime = Time.time;
-            
-            ShootBullet(); // shoot Bullet
-
-            // Invoke("ShootBullet", 0.1f); // delay shooting with coroutines
-
+            // Shoot Bullet
+            Invoke("ShootBullet", 0.1f);
         }
-
+        // shoot key isn't being pressed and key release flag is false
         if (!keyShoot && !keyShootRelease)
         {
             keyShootReleaseTimeLength = Time.time - shootTime;
             keyShootRelease = true;
         }
-
+        // while shooting limit its duration
         if (isShooting)
         {
             shootTimeLength = Time.time - shootTime;
-            // how long the shooting happen for  and how long the key was pressed for
-            if (shootTimeLength >= 0.25f || keyShootReleaseTimeLength >= 0.15)
+            if (shootTimeLength >= 0.25f || keyShootReleaseTimeLength >= 0.15f)
             {
                 isShooting = false;
             }
@@ -330,6 +368,30 @@ public class PlayerController : MonoBehaviour
         Invoke("StartDefeatAnimation", 0.5f);
     }
 
+    public void FreezeInput(bool freeze)
+    {
+        freezeInput = freeze;
+
+    }
+
+    public void FreezePlayer(bool freeze)
+    {
+         if (freeze)
+        {
+            freezePlayer = true;
+            animator.speed = 0;
+            rb2dConstraints = rb2d.constraints;
+            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+            rb2d.velocity = Vector2.zero;
+        }
+        else
+        {
+            freezePlayer = false;
+            animator.speed = 1;
+            rb2d.constraints = rb2dConstraints;
+            // ?? rb2d.velocity = bulletDirection * bulletSpeed;
+        }         
+    }
 
 
 }
