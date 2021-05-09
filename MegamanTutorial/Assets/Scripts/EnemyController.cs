@@ -50,7 +50,7 @@ public class EnemyController : MonoBehaviour
         if (!isInvincible)
         {
             currentHealth -= damage;
-            Mathf.Clamp(currentHealth, 0, maxHealth);
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             if (currentHealth <= 0)
             {
                 Defeat();

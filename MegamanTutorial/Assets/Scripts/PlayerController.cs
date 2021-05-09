@@ -319,7 +319,7 @@ public class PlayerController : MonoBehaviour
         if (!isInvincible)
         {
             currentHealth -= damage;
-            Mathf.Clamp(currentHealth, 0, maxHealth);
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
             if (currentHealth <= 0)
             {
@@ -337,7 +337,8 @@ public class PlayerController : MonoBehaviour
         if (!isTakingDamage)
         {
             isTakingDamage = true;
-            isInvincible = true;
+            Invincible(true);
+            FreezeInput(true);
             float hitForceX = 0.50f;
             float hitForceY = 1.5f;
             if (hitSideRight) hitForceX = -hitForceX;
@@ -349,18 +350,30 @@ public class PlayerController : MonoBehaviour
 
     void StopDamageAnimation()
     {
+        // this function is called at the end of the Hit animation
+        // and we reset the animation because it doesn't loop otherwise
+        // we can end up stuck in it
         isTakingDamage = false;
-        isInvincible = false;
+        Invincible(false);
+        FreezeInput(false);
         animator.Play("Player_Hit", -1, 0f);
 
     }
 
     void StartDefeatAnimation()
     {
+        FreezeInput(true);
+        FreezePlayer(true);
         GameObject explodeEffect = Instantiate(explodeEffectPrefab);
         explodeEffect.name = explodeEffectPrefab.name;
         explodeEffect.transform.position = sprite.bounds.center;
         Destroy(gameObject);
+    }
+
+    void StopDefeatAnimation()
+    {
+        FreezeInput(false);
+        FreezePlayer(false);
     }
 
     void Defeat()

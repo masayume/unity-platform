@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6666811342466539752}
   m_Layer: 0
   m_Name: ExplodeEffect1
-  m_TagString: Untagged
+  m_TagString: Explosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
