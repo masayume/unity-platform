@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     bool keyJump;
     bool keyShoot;
     bool isGrounded;
+    bool isJumping;
     bool isShooting;
     bool isTakingDamage;
     bool isInvincible;
@@ -40,6 +41,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform bulletShootPos;
 
     [SerializeField] GameObject bulletPrefab;
+
+    [SerializeField] AudioClip jumpLandedClip;
+    [SerializeField] AudioClip shootBulletClip;
+    [SerializeField] AudioClip takingDamageClip;
+    [SerializeField] AudioClip explodeEffectClip;
 
     [SerializeField] GameObject explodeEffectPrefab;
 
@@ -72,6 +78,11 @@ public class PlayerController : MonoBehaviour
         if (raycastHit.collider != null)
         {
             isGrounded = true;
+            if (isJumping)
+            {
+                SoundManager.Instance.Play(jumpLandedClip);
+                isJumping = false;
+            }
         }
         // raycast draw debug lines, visible in the Scene (green: touches; red: no touch)
         raycastColor = (isGrounded) ? Color.green : Color.red;
@@ -118,8 +129,8 @@ public class PlayerController : MonoBehaviour
         // E for Explosions
         if (Input.GetKeyDown(KeyCode.E))
         {
-            StartDefeatAnimation();
-            Debug.Log("Start Defeat Animation");
+            Defeat();
+            Debug.Log("Defeat");
         }
 
         // I for Invincible
@@ -238,6 +249,7 @@ public class PlayerController : MonoBehaviour
 
         if (!isGrounded) // falling
         {
+            isJumping = true;
             if (isShooting)
             {
                 animator.Play("Player_JumpShoot");
@@ -302,6 +314,8 @@ public class PlayerController : MonoBehaviour
         bullet.GetComponent<BulletScript>().SetBulletSpeed(bulletSpeed);
         bullet.GetComponent<BulletScript>().SetBulletDirection((isFacingRight) ? Vector2.right : Vector2.left);
         bullet.GetComponent<BulletScript>().Shoot();
+
+        SoundManager.Instance.Play(shootBulletClip);
     }
 
     public void HitSide(bool rightSide)
@@ -345,6 +359,8 @@ public class PlayerController : MonoBehaviour
             rb2d.velocity = Vector2.zero;
             rb2d.AddForce(new Vector2(hitForceX, hitForceY), ForceMode2D.Impulse);
 
+            SoundManager.Instance.Play(takingDamageClip);
+
         }
     }
 
@@ -367,6 +383,8 @@ public class PlayerController : MonoBehaviour
         GameObject explodeEffect = Instantiate(explodeEffectPrefab);
         explodeEffect.name = explodeEffectPrefab.name;
         explodeEffect.transform.position = sprite.bounds.center;
+
+        SoundManager.Instance.Play(explodeEffectClip);
         Destroy(gameObject);
     }
 
@@ -378,6 +396,7 @@ public class PlayerController : MonoBehaviour
 
     void Defeat()
     {
+        GameManager.Instance.PlayerDefeated();
         Invoke("StartDefeatAnimation", 0.5f);
     }
 

@@ -22,10 +22,16 @@ public class EnemyController : MonoBehaviour
 
     RigidbodyConstraints2D rb2dConstraints;
     public bool freezeEnemy;
+    public int scorePoints = 500;
     public int currentHealth;
     public int maxHealth = 1;
     public int contactDamage = 1;
     public int explosionDamage = 0;
+
+    public AudioClip shootBulletClip; // public because of EnemyController
+
+    [SerializeField] AudioClip damageClip;
+    [SerializeField] AudioClip blockAttackClip;
 
     [SerializeField] GameObject explodeEffectPrefab;
 
@@ -51,10 +57,15 @@ public class EnemyController : MonoBehaviour
         {
             currentHealth -= damage;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            SoundManager.Instance.Play(damageClip);
             if (currentHealth <= 0)
             {
                 Defeat();
             }
+        }
+        else
+        {
+            SoundManager.Instance.Play(blockAttackClip);
         }
     }
 
@@ -76,6 +87,7 @@ public class EnemyController : MonoBehaviour
     {
         StartDefeatAnimation();
         Destroy(gameObject);
+        GameManager.Instance.AddScorePoints(this.scorePoints);
     }
 
     public void FreezeEnemy(bool freeze)
