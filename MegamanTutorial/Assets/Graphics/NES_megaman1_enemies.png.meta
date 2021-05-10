@@ -157,10 +157,10 @@ TextureImporter:
     second: NES_megaman1_enemies_50
   - first:
       213: -1576374170037368807
-    second: Pepe
+    second: Pepe1
   - first:
       213: -4935111038899205285
-    second: NES_megaman1_enemies_52
+    second: Pepe2
   - first:
       213: 8648312654387181627
     second: NES_megaman1_enemies_53
@@ -169,13 +169,13 @@ TextureImporter:
     second: NES_megaman1_enemies_54
   - first:
       213: 5609420993104994698
-    second: NES_megaman1_enemies_55
+    second: KillerBomb_Blue
   - first:
       213: 8405077097289509408
-    second: NES_megaman1_enemies_56
+    second: KillerBomb_Orange
   - first:
       213: -235176937731077898
-    second: NES_megaman1_enemies_57
+    second: KillerBomb_Red
   - first:
       213: 4147537097490079022
     second: NES_megaman1_enemies_58
@@ -1573,7 +1573,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pepe
+      name: Pepe1
       rect:
         serializedVersion: 2
         x: 282
@@ -1594,7 +1594,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_52
+      name: Pepe2
       rect:
         serializedVersion: 2
         x: 308
@@ -1657,7 +1657,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_55
+      name: KillerBomb_Blue
       rect:
         serializedVersion: 2
         x: 368
@@ -1678,7 +1678,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_56
+      name: KillerBomb_Orange
       rect:
         serializedVersion: 2
         x: 386
@@ -1699,7 +1699,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_57
+      name: KillerBomb_Red
       rect:
         serializedVersion: 2
         x: 404

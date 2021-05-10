@@ -46,6 +46,11 @@ public class EnemyController : MonoBehaviour
         currentHealth = maxHealth;   
     }
 
+    public void Flip()
+    {
+        transform.Rotate(0, 180f, 0);
+    }
+
     public void Invincible(bool invincibility)
     {
         isInvincible = invincibility;
