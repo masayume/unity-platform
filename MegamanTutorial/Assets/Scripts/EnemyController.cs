@@ -27,13 +27,16 @@ public class EnemyController : MonoBehaviour
     public int maxHealth = 1;
     public int contactDamage = 1;
     public int explosionDamage = 0;
+    public int bulletDamage = 1;
+    public float bulletSpeed = 3f;
 
+    public AudioClip damageClip;
+    public AudioClip blockAttackClip;
     public AudioClip shootBulletClip; // public because of EnemyController
 
-    [SerializeField] AudioClip damageClip;
-    [SerializeField] AudioClip blockAttackClip;
-
-    [SerializeField] GameObject explodeEffectPrefab;
+    public GameObject bulletShootPos;
+    public GameObject bulletPrefab;
+    public GameObject explodeEffectPrefab;
 
     // Start is called before the first frame update
     void Start()

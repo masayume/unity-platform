@@ -48,7 +48,7 @@ public class PepeController : MonoBehaviour
         {
             // add anything here to happen while frozen i.e. time compensations
             // path start time for bezier curve gets annihilated when frozen - compensate
-            // pathTimeStart += Time.deltaTime;
+            pathTimeStart += Time.deltaTime;
             return;
         }
 

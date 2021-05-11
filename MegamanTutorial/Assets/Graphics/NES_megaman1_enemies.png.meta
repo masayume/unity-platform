@@ -103,10 +103,10 @@ TextureImporter:
     second: NES_megaman1_enemies_32
   - first:
       213: 3226561829421874399
-    second: NES_megaman1_enemies_33
+    second: Mambu_Closed
   - first:
       213: -1045334502016864900
-    second: NES_megaman1_enemies_34
+    second: Mambu_Open
   - first:
       213: 3030877781325569280
     second: NES_megaman1_enemies_35
@@ -376,19 +376,19 @@ TextureImporter:
     second: Explode4
   - first:
       213: -7546013581096668113
-    second: NES_megaman1_enemies_124
+    second: Bullet_Red
   - first:
       213: -7209892262054419045
-    second: NES_megaman1_enemies_125
+    second: Bullet_Pink
   - first:
       213: -5755390323242736845
-    second: NES_megaman1_enemies_126
+    second: Bullet_Green
   - first:
       213: 8425831868980322597
-    second: NES_megaman1_enemies_127
+    second: Bullet_Blue
   - first:
       213: 3748546901667554805
-    second: NES_megaman1_enemies_128
+    second: Bullet_Orange
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1195,7 +1195,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_33
+      name: Mambu_Closed
       rect:
         serializedVersion: 2
         x: 397
@@ -1216,7 +1216,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_34
+      name: Mambu_Open
       rect:
         serializedVersion: 2
         x: 415
@@ -3106,7 +3106,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_124
+      name: Bullet_Red
       rect:
         serializedVersion: 2
         x: 1
@@ -3127,7 +3127,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_125
+      name: Bullet_Pink
       rect:
         serializedVersion: 2
         x: 9
@@ -3148,7 +3148,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_126
+      name: Bullet_Green
       rect:
         serializedVersion: 2
         x: 17
@@ -3169,7 +3169,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_127
+      name: Bullet_Blue
       rect:
         serializedVersion: 2
         x: 25
@@ -3190,7 +3190,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_128
+      name: Bullet_Orange
       rect:
         serializedVersion: 2
         x: 33
