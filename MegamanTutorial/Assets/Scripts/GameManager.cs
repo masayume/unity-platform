@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
         if (!isGameOver)
         {
             // do stuff while the game is running
+            RepositionEnemies();
         }
         else 
         {
@@ -184,5 +185,34 @@ public class GameManager : MonoBehaviour
             Destroy(explosion);
         }
     }
+
+    // X coord right outside the camera, left side and right side
+    private void RepositionEnemies()
+    {
+        // get camera world coordinates just outside the left and right view
+        Vector3 worldLeft = Camera.main.ViewportToWorldPoint(new Vector3(-0.1f, 0, 0));
+        Vector3 worldRight = Camera.main.ViewportToWorldPoint(new Vector3(1.1f, 0, 0));
+        // check all enemies in the scene
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            // outside the left view
+            if (enemy.transform.position.x < worldLeft.x)
+            {
+                switch (enemy.name)
+                {
+                    case "KillerBomb":
+                        enemy.transform.position = new Vector3(worldRight.x, UnityEngine.Random.Range(-1.5f, 1.5f), 0);
+                        enemy.GetComponent<KillerBombController>().ResetFollowingPath();
+                        break;
+                    case "Pepe":
+                        enemy.transform.position = new Vector3(worldRight.x, UnityEngine.Random.Range(-1f, 1f), 0);
+                        enemy.GetComponent<PepeController>().ResetFollowingPath();
+                        break;
+                }
+            }
+        }
+    }
+
 
 }
