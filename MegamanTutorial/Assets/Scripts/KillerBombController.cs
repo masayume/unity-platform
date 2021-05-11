@@ -54,29 +54,40 @@ public class KillerBombController : MonoBehaviour
     {
         if (enemyController.freezeEnemy)
         {
-            pathTimeStart += Time.deltaTime; // compensation for time passing and path calculation while frozen
+            // add anything here to happen while frozen i.e. time compensations
+            // path start time for bezier curve gets annihilated when frozen - compensate
+            pathTimeStart += Time.deltaTime;
             return;
         }
 
+        // play animation
         animator.Play("KillerBomb_Flying");
 
+        // calculate next travel path when previous is completed
         if (!isFollowingPath)
         {
+            // distance/length to the next end point, get start point from rigidbody position, 
+            // end point is calculated by adding the distance to start point
+            // middle point is calculated and the height is applied to form the curve
+            // start time is needed to determine the point in the curve we want
+            // i.e. this is just like LERPing
             float distance = (isFacingRight) ? bezierDistance : -bezierDistance;
             pathStartPoint = rb2d.transform.position;
             pathEndPoint = new Vector3(pathStartPoint.x + distance, pathStartPoint.y, pathStartPoint.z);
-            pathEndPoint = pathStartPoint + (((pathEndPoint - pathStartPoint) / 2 ) + bezierHeight);
+            pathMidPoint = pathStartPoint + (((pathEndPoint - pathStartPoint) / 2) + bezierHeight);
             pathTimeStart = Time.time;
             isFollowingPath = true;
         }
-        else 
+        else
         {
-            float percentage = (Time.time - pathTimeStart) / bezierTime; // 0 - 1, analog to LERP
-            rb2d.transform.position = UtilityFunctions.CalculateQuadraticBezierPoint(
-                pathStartPoint, pathMidPoint, pathEndPoint, percentage);
+            // percentage is the point in the curve we want and update our rigidbody position
+            float percentage = (Time.time - pathTimeStart) / bezierTime;
+            rb2d.transform.position = UtilityFunctions.CalculateQuadraticBezierPoint(pathStartPoint, pathMidPoint, pathEndPoint, percentage);
+            // end of the curve has been reach
             if (percentage >= 1f)
             {
-                bezierHeight *= -1; // second half of the y curve
+                // invert the height - this is what creates the flying wave effect
+                bezierHeight *= -1;
                 isFollowingPath = false;
             }
         }
