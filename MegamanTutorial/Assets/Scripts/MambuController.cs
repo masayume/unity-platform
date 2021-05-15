@@ -11,30 +11,32 @@ public class MambuController : MonoBehaviour
     bool isFacingRight;
     bool isShooting;
 
-    float openTimer;
-    float closedTimer;
+    float openTimer;    // for how much it stays open
+    float closedTimer;  // for how much it stays closed
     float shootTimer;
 
     public float moveSpeed = 1f;
     public float openDelay = 1f;
     public float closedDelay = 1.5f;
-    public float shootDelay = 0.5f;
+    public float shootDelay = 0.5f;     // to wait before it shoots
 
-    public enum MambuState { Closed, Open };
-    public MambuState mambuState = MambuState.Closed;
+    public enum MambuState { Closed, Open };    // to handle states
+    public MambuState mambuState = MambuState.Closed;   // when it starts it stays closed
 
     public enum MoveDirections { Left, Right };
-    [SerializeField] MoveDirections moveDirection = MoveDirections.Left;
+    [SerializeField] MoveDirections moveDirection = MoveDirections.Left; 
+    // left:    travels on negative x axis
+    // right:   travels on positive x axis
 
     // Start is called before the first frame update
     void Start()
     {
-        // get components from EnemyController
+        // 1 - get components from EnemyController
         enemyController = GetComponent<EnemyController>();
         animator = enemyController.GetComponent<Animator>();
         rb2d = enemyController.GetComponent<Rigidbody2D>();
 
-        // sprite sheet images face right
+        // 2 - sprite sheet images face right
         // switch to facing left if it's set
         isFacingRight = true;
         if (moveDirection == MoveDirections.Left)
@@ -43,17 +45,17 @@ public class MambuController : MonoBehaviour
             enemyController.Flip();
         }
 
-        // not shooting...yet
+        // 3 - not shooting...yet
         isShooting = false;
 
-        // set up the state timer we're starting with
+        // 4 - set up the state timer we're starting with
         if (mambuState == MambuState.Closed)
         {
-            closedTimer = closedDelay;
+            closedTimer = closedDelay;  // time to stay closed
         }
         else if (mambuState == MambuState.Open)
         {
-            openTimer = openDelay;
+            openTimer = openDelay;      // time to stay open
         }
     }
 
@@ -102,7 +104,7 @@ public class MambuController : MonoBehaviour
                 animator.Play("Mambu_Open");
                 rb2d.velocity = new Vector2(0, rb2d.velocity.y);
                 shootTimer -= Time.deltaTime;
-                if (shootTimer < 0 && !isShooting)
+                if (shootTimer < 0 && !isShooting) // shoot only once
                 {
                     ShootBullet();
                     isShooting = true;
