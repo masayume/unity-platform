@@ -139,6 +139,28 @@ MonoBehaviour:
   bulletSpeed: 5
   bulletDirection: {x: 1, y: 0}
   destroyDelay: 2
+  collideWithTags:
+  - Enemy
+  bulletType: 0
+  bulletData:
+  - sprite: {fileID: 21300000, guid: df628bc6af5acac31a19cf97951a7104, type: 3}
+    radius: 0.035
+    scale: {x: 1, y: 1, z: 0}
+  - sprite: {fileID: 8425831868980322597, guid: d25b6c8896f0627afa3a82f63652dea0, type: 3}
+    radius: 0.025
+    scale: {x: 1.5, y: 1.5, z: 0}
+  - sprite: {fileID: -5755390323242736845, guid: d25b6c8896f0627afa3a82f63652dea0, type: 3}
+    radius: 0.025
+    scale: {x: 1.5, y: 1.5, z: 0}
+  - sprite: {fileID: 3748546901667554805, guid: d25b6c8896f0627afa3a82f63652dea0, type: 3}
+    radius: 0.025
+    scale: {x: 1.5, y: 1.5, z: 0}
+  - sprite: {fileID: -7209892262054419045, guid: d25b6c8896f0627afa3a82f63652dea0, type: 3}
+    radius: 0.025
+    scale: {x: 1.5, y: 1.5, z: 0}
+  - sprite: {fileID: -7546013581096668113, guid: d25b6c8896f0627afa3a82f63652dea0, type: 3}
+    radius: 0.025
+    scale: {x: 1.5, y: 1.5, z: 0}
 --- !u!95 &-1008349856456669927
 Animator:
   serializedVersion: 3
