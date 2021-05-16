@@ -15,30 +15,33 @@ public class PepeController : MonoBehaviour
     Vector3 pathEndPoint;
     Vector3 pathMidPoint;
     float pathTimeStart;
+
     public float bezierTime = 1f;
     public float bezierDistance = 1f;
     public Vector3 bezierHeight = new Vector3(0, 0.8f, 0);
 
     public enum MoveDirections { Left, Right };
-
     [SerializeField] MoveDirections moveDirection = MoveDirections.Left;
+
+    void Awake()
+    {
+        // get components from EnemyController
+        enemyController = GetComponent<EnemyController>();
+        animator = enemyController.GetComponent<Animator>();
+        rb2d = enemyController.GetComponent<Rigidbody2D>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyController = GetComponent<EnemyController>();
-        animator = enemyController.GetComponent<Animator>();
-        rb2d = enemyController.GetComponent<Rigidbody2D>();
-
-        // which way to face ? (spritesheet is right but game is left)
-
+        // sprite sheet images face right
+        // switch to facing left if it's set
         isFacingRight = true;
         if (moveDirection == MoveDirections.Left)
         {
             isFacingRight = false;
             enemyController.Flip();
         }
-
     }
 
     // Update is called once per frame
@@ -87,7 +90,11 @@ public class PepeController : MonoBehaviour
 
     public void SetMoveDirection(MoveDirections direction)
     {
+        // we can call this to change the moving direction in real-time
+        // and it should be followed by calling ResetFollowingPath to
+        // calculate new bezier curve control points
         moveDirection = direction;
+        // flip the facing side if it's needed
         if (moveDirection == MoveDirections.Left)
         {
             if (isFacingRight)
@@ -96,7 +103,7 @@ public class PepeController : MonoBehaviour
                 enemyController.Flip();
             }
         }
-        else 
+        else
         {
             if (!isFacingRight)
             {
@@ -112,10 +119,6 @@ public class PepeController : MonoBehaviour
         // then the Y position decays until the path finishes and 
         // new control points are calculated
         // call this function to force calculation of new points
-        isFollowingPath = false; 
-
+        isFollowingPath = false;
     }
-
-
-
 }

@@ -15,30 +15,34 @@ public class KillerBombController : MonoBehaviour
     Vector3 pathEndPoint;
     Vector3 pathMidPoint;
     float pathTimeStart;
+
     public float bezierTime = 1f;
     public float bezierDistance = 1f;
     public Vector3 bezierHeight = new Vector3(0, 0.8f, 0);
 
     public enum KillerBombColors { Blue, Orange, Red };
-    [SerializeField] KillerBombColors killerBombColor = KillerBombColors.Blue ;
+    [SerializeField] KillerBombColors killerBombColor = KillerBombColors.Blue;
 
     [SerializeField] RuntimeAnimatorController racKillerBombBlue;
     [SerializeField] RuntimeAnimatorController racKillerBombOrange;
     [SerializeField] RuntimeAnimatorController racKillerBombRed;
 
     public enum MoveDirections { Left, Right };
-
     [SerializeField] MoveDirections moveDirection = MoveDirections.Left;
+
+    void Awake()
+    {
+        // get components from EnemyController
+        enemyController = GetComponent<EnemyController>();
+        animator = enemyController.GetComponent<Animator>();
+        rb2d = enemyController.GetComponent<Rigidbody2D>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyController = GetComponent<EnemyController>();
-        animator = enemyController.GetComponent<Animator>();
-        rb2d = enemyController.GetComponent<Rigidbody2D>();
-
-        // which way to face ? (spritesheet is right but game is left)
-
+        // sprite sheet images face right
+        // switch to facing left if it's set
         isFacingRight = true;
         if (moveDirection == MoveDirections.Left)
         {
@@ -46,6 +50,7 @@ public class KillerBombController : MonoBehaviour
             enemyController.Flip();
         }
 
+        // set killer bomb color of choice
         SetColor(killerBombColor);
     }
 
@@ -95,7 +100,11 @@ public class KillerBombController : MonoBehaviour
 
     public void SetMoveDirection(MoveDirections direction)
     {
+        // we can call this to change the moving direction in real-time
+        // and it should be followed by calling ResetFollowingPath to
+        // calculate new bezier curve control points
         moveDirection = direction;
+        // flip the facing side if it's needed
         if (moveDirection == MoveDirections.Left)
         {
             if (isFacingRight)
@@ -104,7 +113,7 @@ public class KillerBombController : MonoBehaviour
                 enemyController.Flip();
             }
         }
-        else 
+        else
         {
             if (!isFacingRight)
             {
@@ -120,18 +129,18 @@ public class KillerBombController : MonoBehaviour
         // then the Y position decays until the path finishes and 
         // new control points are calculated
         // call this function to force calculation of new points
-        isFollowingPath = false; 
-
+        isFollowingPath = false;
     }
 
-    public void SetColor (KillerBombColors color) 
+    public void SetColor(KillerBombColors color)
     {
         killerBombColor = color;
         SetAnimatorController();
     }
-    
+
     private void SetAnimatorController()
     {
+        // set animator control from color
         switch (killerBombColor)
         {
             case KillerBombColors.Blue:
@@ -145,6 +154,4 @@ public class KillerBombController : MonoBehaviour
                 break;
         }
     }
-
-
 }

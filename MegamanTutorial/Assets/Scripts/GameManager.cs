@@ -10,6 +10,16 @@ public class GameManager : MonoBehaviour
     // Singleton instance
     public static GameManager Instance = null;
 
+    AssetPalette assetPalette;
+    int enemyPrefabCount;
+
+    bool showMessage;   // messages between waves
+    bool firstMessage;  // when game reloads
+    int messageIndex;   
+    string messageText; 
+    float messageTimer; // countdown for message
+    float messageDelay = 2.5f;
+
     bool isGameOver;
     bool playerReady;
     bool initReadyScreen;
@@ -98,6 +108,8 @@ public class GameManager : MonoBehaviour
         {
             // here is where we can do things while the game is running
             GetWorldViewCoordinates();
+            ShowMessage();
+            SpawnEnemies();
             RepositionEnemies();
             DestroyStrayBullets();
         }
@@ -138,6 +150,7 @@ public class GameManager : MonoBehaviour
         isGameOver = false;
         playerReady = true;
         initReadyScreen = true;
+        firstMessage = true;
         gamePlayerReadyTime = gamePlayerReadyDelay;
         playerScoreText = GameObject.Find("PlayerScore").GetComponent<TextMeshProUGUI>();
         screenMessageText = GameObject.Find("ScreenMessage").GetComponent<TextMeshProUGUI>();
@@ -219,13 +232,102 @@ public class GameManager : MonoBehaviour
         worldViewCoords.Top = wv1.y;
     }
 
+    private void ShowMessage()
+    {
+        // words of encouragement :)
+        string[] messages = {
+            "GO GO GO",
+            "YOU'RE TOO GOOD",
+            "GREAT JOB PLAYER",
+            "RACK UP THAT SCORE",
+            "THIS MIGHT BE TOUGH",
+            "DAJE !"
+        };
+
+        // pick a random message when there are no enemies
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        {
+            messageIndex = firstMessage ? 0 : UnityEngine.Random.Range(0, messages.Length);
+            messageText = messages[messageIndex];
+            messageTimer = messageDelay;
+            showMessage = true;
+        }
+
+        if (showMessage)
+        {
+            // show the message on screen
+            screenMessageText.alignment = TextAlignmentOptions.Center;
+            screenMessageText.alignment = TextAlignmentOptions.Top;
+            screenMessageText.fontStyle = FontStyles.UpperCase;
+            screenMessageText.fontSize = 24;
+            screenMessageText.text = messageText;
+
+            // show the message for the timer duration
+            messageTimer -= Time.deltaTime;
+            if (messageTimer < 0)
+            {
+                screenMessageText.text = "";
+                firstMessage = false;
+                showMessage = false;
+            }
+        }
+    }
+
+    private void SpawnEnemies()
+    {
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        {
+            // set the asset palette up only one time
+            if (assetPalette == null)
+            {
+                assetPalette = GetComponent<AssetPalette>();
+                enemyPrefabCount = Enum.GetNames(typeof(AssetPalette.EnemyList)).Length; // count the enemies to use
+            }
+            // instantiate 5 enemies at most on screen at one time
+            int randomEnemyCount = UnityEngine.Random.Range(1, 6);
+            GameObject[] randomEnemies = new GameObject[randomEnemyCount];
+            for (int i = 0; i < randomEnemyCount; i++)
+            {
+                // pick a random enemy and position it
+                int enemyIndex = UnityEngine.Random.Range(0, enemyPrefabCount);
+                randomEnemies[i] = Instantiate(assetPalette.enemyPrefabs[enemyIndex]);
+                randomEnemies[i].name = assetPalette.enemyPrefabs[enemyIndex].name;
+                randomEnemies[i].transform.position = new Vector3(worldViewCoords.Right + UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(-1f, 1f), 0);
+                // for enemies with colors, randomize them
+                switch (randomEnemies[i].name)
+                {
+                    case "BigEye":
+                        // and dropping big eye into the scene inside camera view
+                        randomEnemies[i].transform.position = new Vector3(worldViewCoords.Right - UnityEngine.Random.Range(0.75f, 1.5f), 2f, 0);
+                        randomEnemies[i].GetComponent<BigEyeController>().SetColor((BigEyeController.BigEyeColors)UnityEngine.Random.Range(0, Enum.GetNames(typeof(BigEyeController.BigEyeColors)).Length));
+                        break;
+                    case "KillerBomb":
+                        randomEnemies[i].GetComponent<KillerBombController>().SetColor((KillerBombController.KillerBombColors)UnityEngine.Random.Range(0, Enum.GetNames(typeof(KillerBombController.KillerBombColors)).Length));
+                        break;
+                }
+            }
+        }
+    }
+
     private void RepositionEnemies()
     {
         // check all enemies in the scene
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
         {
-            // outside the left view
+            // outside the bottom view (grounded enemies)
+            if (enemy.transform.position.y < worldViewCoords.Bottom)
+            {
+                switch (enemy.name)
+                {
+                    case "BigEye":
+                        // because he uses velocity while in the air for jumping it's possible 
+                        // he can go outside the right boundary, reposition more to the left
+                        enemy.transform.position = new Vector3(worldViewCoords.Right - 2.5f, 2f, 0);
+                        break;
+                }
+            }
+            // outside the left view (flying enemies)
             if (enemy.transform.position.x < worldViewCoords.Left)
             {
                 switch (enemy.name)

@@ -43,15 +43,18 @@ public class BigEyeController : MonoBehaviour
     public enum MoveDirections { Left, Right };
     [SerializeField] MoveDirections moveDirection = MoveDirections.Left;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         // get components from EnemyController
         enemyController = GetComponent<EnemyController>();
         animator = enemyController.GetComponent<Animator>();
         box2d = enemyController.GetComponent<BoxCollider2D>();
         rb2d = enemyController.GetComponent<Rigidbody2D>();
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
         // sprite sheet images face right
         // switch to facing left if it's set
         isFacingRight = true;
@@ -144,7 +147,7 @@ public class BigEyeController : MonoBehaviour
         {
             animator.Play("BigEye_Grounded");
             rb2d.velocity = new Vector2(0, rb2d.velocity.y);
-            jumpTimer -= Time.deltaTime; // countdown to jump
+            jumpTimer -= Time.deltaTime;
             if (jumpTimer < 0)
             {
                 if (jumpPattern == null)
@@ -171,7 +174,7 @@ public class BigEyeController : MonoBehaviour
             animator.Play("BigEye_Jumping");
             rb2d.velocity = new Vector2(jumpVelocity.x, rb2d.velocity.y);
             isJumping = true;
-            if (jumpVelocity.x < 0)
+            if (jumpVelocity.x <= 0)
             {
                 if (isFacingRight)
                 {
