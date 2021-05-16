@@ -268,22 +268,22 @@ TextureImporter:
     second: NES_megaman1_enemies_87
   - first:
       213: -8125162498011619636
-    second: NES_megaman1_enemies_88
+    second: BigEye_Grounded_Red
   - first:
       213: 4221934024760951284
-    second: NES_megaman1_enemies_89
+    second: BigEye_Jumping_Red
   - first:
       213: -3582742242660765427
-    second: NES_megaman1_enemies_90
+    second: BigEye_Grounded_Blue
   - first:
       213: -9143810901922419765
-    second: NES_megaman1_enemies_91
+    second: BigEye_Jumping_Blue
   - first:
       213: -2466028019760136625
-    second: NES_megaman1_enemies_92
+    second: BigEye_Grounded_Orange
   - first:
       213: 2792428259991039371
-    second: NES_megaman1_enemies_93
+    second: BigEye_Jumping_Orange
   - first:
       213: -4534425508300367753
     second: NES_megaman1_enemies_94
@@ -2350,15 +2350,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_88
+      name: BigEye_Grounded_Red
       rect:
         serializedVersion: 2
         x: 1
         y: 43
         width: 32
         height: 40
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.625, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2371,15 +2371,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_89
+      name: BigEye_Jumping_Red
       rect:
         serializedVersion: 2
         x: 35
         y: 43
         width: 32
         height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.625, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2392,15 +2392,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_90
+      name: BigEye_Grounded_Blue
       rect:
         serializedVersion: 2
         x: 69
         y: 43
         width: 32
         height: 40
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.625, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2413,15 +2413,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_91
+      name: BigEye_Jumping_Blue
       rect:
         serializedVersion: 2
         x: 103
         y: 43
         width: 32
         height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.625, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2434,15 +2434,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_92
+      name: BigEye_Grounded_Orange
       rect:
         serializedVersion: 2
         x: 137
         y: 43
         width: 32
         height: 40
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.625, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2455,15 +2455,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NES_megaman1_enemies_93
+      name: BigEye_Jumping_Orange
       rect:
         serializedVersion: 2
         x: 171
         y: 43
         width: 32
         height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.625, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
