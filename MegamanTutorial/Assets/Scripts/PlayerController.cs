@@ -414,6 +414,26 @@ public class PlayerController : MonoBehaviour
         Invincible(false);
         FreezeInput(false);
         animator.Play("Player_Hit", -1, 0f);
+        StartCoroutine("FlashAfterDamage()");
+    }
+
+    private IEnumerator FlashAfterDamage()
+    {
+        float flashDelay = 0.0833f; // 1 frame
+        for (int i = 0; i < 10; i++)
+        {
+            // sprite.enabled = false;
+            // sprite.material = null;
+            // sprite.color = new Color(1, 1, 1, 0); // 0 alpha = invisible
+            sprite.color = Color.clear;
+            yield return new WaitForSeconds(flashDelay);
+            // sprite.enabled = true;
+            // sprite.material = new Material(Shader.Find("Sprites/Default"));
+            // sprite.color = new Color(1, 1, 1, 1); // 1 alpha = visible
+            sprite.color = Color.white;
+            yield return new WaitForSeconds(flashDelay);
+        }
+        Invincible(false);
     }
 
     void StartDefeatAnimation()
