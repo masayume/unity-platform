@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     bool isGrounded;
     bool isJumping;
     bool isShooting;
+    bool isTeleporting;
     bool isTakingDamage;
     bool isInvincible;
     bool isFacingRight;
@@ -37,12 +38,14 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float moveSpeed = 1.5f;
     [SerializeField] float jumpSpeed = 3.7f;
+    [SerializeField] float teleportSpeed = -10f;
 
     [SerializeField] int bulletDamage = 1;
     [SerializeField] float bulletSpeed = 5f;
     [SerializeField] Transform bulletShootPos;
     [SerializeField] GameObject bulletPrefab;
 
+    [SerializeField] AudioClip teleportClip;
     [SerializeField] AudioClip jumpLandedClip;
     [SerializeField] AudioClip shootBulletClip;
     [SerializeField] AudioClip takingDamageClip;
@@ -50,15 +53,21 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] GameObject explodeEffectPrefab;
 
-    // Start is called before the first frame update
-    void Start()
+    public enum TeleportState { Descending, Landed, Idle };
+    [SerializeField] TeleportState teleportState;
+
+    void Awake()
     {
         // get handles to components
         animator = GetComponent<Animator>();
         box2d = GetComponent<BoxCollider2D>();
         rb2d = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
         // sprite defaults to facing right
         isFacingRight = true;
 
@@ -105,6 +114,30 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // initial screen animation - teleport from top of screen really fast
+        if (isTeleporting)
+        {
+            switch (teleportState)
+            {
+                case TeleportState.Descending:
+                    // force this to false so the jumped landed sound isn't played
+                    isJumping = false;
+                    if (isGrounded)
+                    {
+                        teleportState = TeleportState.Landed;
+                    }
+                    break;
+                case TeleportState.Landed:
+                    // events in the animation will be called
+                    animator.speed = 1;
+                    break;
+                case TeleportState.Idle:
+                    Teleport(false);
+                    break;
+            }
+            return;
+        }
+
         // taking damage from projectiles, touching enemies, or other environment objects
         if (isTakingDamage)
         {
@@ -162,6 +195,13 @@ public class PlayerController : MonoBehaviour
         {
             FreezePlayer(!freezePlayer);
             Debug.Log("Freeze Player: " + freezePlayer);
+        }
+
+        // T for Teleport
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Teleport(true);
+            Debug.Log("Teleport(true)");
         }
     }
 
@@ -411,28 +451,31 @@ public class PlayerController : MonoBehaviour
         // and we reset the animation because it doesn't loop otherwise
         // we can end up stuck in it
         isTakingDamage = false;
-        Invincible(false);
         FreezeInput(false);
         animator.Play("Player_Hit", -1, 0f);
-        StartCoroutine("FlashAfterDamage()");
+        StartCoroutine(FlashAfterDamage());
     }
 
     private IEnumerator FlashAfterDamage()
     {
-        float flashDelay = 0.0833f; // 1 frame
+        // hit animation is 12 samples
+        // keep flashing consistent with 1/12 secs
+        float flashDelay = 0.0833f;
+        // toggle transparency
         for (int i = 0; i < 10; i++)
         {
-            // sprite.enabled = false;
-            // sprite.material = null;
-            // sprite.color = new Color(1, 1, 1, 0); // 0 alpha = invisible
+            //sprite.enabled = false;
+            //sprite.material = null;
+            //sprite.color = new Color(1, 1, 1, 0);
             sprite.color = Color.clear;
             yield return new WaitForSeconds(flashDelay);
-            // sprite.enabled = true;
-            // sprite.material = new Material(Shader.Find("Sprites/Default"));
-            // sprite.color = new Color(1, 1, 1, 1); // 1 alpha = visible
+            //sprite.enabled = true;
+            //sprite.material = new Material(Shader.Find("Sprites/Default"));
+            //sprite.color = new Color(1, 1, 1, 1);
             sprite.color = Color.white;
             yield return new WaitForSeconds(flashDelay);
         }
+        // no longer invincible
         Invincible(false);
     }
 
@@ -487,6 +530,38 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Teleport(bool teleport)
+    {
+        if (teleport)
+        {
+            isTeleporting = true;
+            FreezeInput(true);
+            animator.Play("Player_Teleport");
+            animator.speed = 0;
+            teleportState = TeleportState.Descending;
+            rb2d.velocity = new Vector2(rb2d.velocity.x, teleportSpeed);
+        }
+        else
+        {
+            isTeleporting = false;
+            FreezeInput(false);
+        }
+    }
+
+    // play the landing animation sound at the frame of impact otherwise
+    // the sounds seems delayed when it originally was played at the animation end
+    void TeleportAnimationSound()
+    {
+        SoundManager.Instance.Play(teleportClip);
+    }
+
+    // called at the end of the animation event to move to the Idle state
+    // and play the landing sound (once)
+    void TeleportAnimationEnd()
+    {
+        teleportState = TeleportState.Idle;
+    }
+
     public void MobileShootWrapper()
     {
         // wrapper function for button handler script
@@ -501,7 +576,7 @@ public class PlayerController : MonoBehaviour
     {
         // press shoot and release
         keyShoot = true;
-        yield return new WaitForSeconds(0.01f); // delay between frames with a coroutine
+        yield return new WaitForSeconds(0.01f);
         keyShoot = false;
     }
 
@@ -519,7 +594,7 @@ public class PlayerController : MonoBehaviour
     {
         // press jump and release
         keyJump = true;
-        yield return new WaitForSeconds(0.01f); // delay between frames with a coroutine
+        yield return new WaitForSeconds(0.01f);
         keyJump = false;
     }
 }

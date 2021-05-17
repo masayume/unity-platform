@@ -13,11 +13,11 @@ public class GameManager : MonoBehaviour
     AssetPalette assetPalette;
     int enemyPrefabCount;
 
-    bool showMessage;   // messages between waves
-    bool firstMessage;  // when game reloads
-    int messageIndex;   
-    string messageText; 
-    float messageTimer; // countdown for message
+    bool showMessage;
+    bool firstMessage;
+    int messageIndex;
+    string messageText;
+    float messageTimer;
     float messageDelay = 2.5f;
 
     bool isGameOver;
@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour
             {
                 FreezePlayer(false);
                 FreezeEnemies(false);
+                TeleportPlayer(true);
                 screenMessageText.text = "";
                 playerReady = false;
             }
@@ -194,6 +195,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void TeleportPlayer(bool teleport)
+    {
+        // teleport player - happens after READY screen
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.GetComponent<PlayerController>().Teleport(teleport);
+        }
+    }
+
     public void PlayerDefeated()
     {
         // game over :(
@@ -240,8 +251,7 @@ public class GameManager : MonoBehaviour
             "YOU'RE TOO GOOD",
             "GREAT JOB PLAYER",
             "RACK UP THAT SCORE",
-            "THIS MIGHT BE TOUGH",
-            "DAJE !"
+            "THIS MIGHT BE TOUGH"
         };
 
         // pick a random message when there are no enemies
@@ -281,9 +291,9 @@ public class GameManager : MonoBehaviour
             if (assetPalette == null)
             {
                 assetPalette = GetComponent<AssetPalette>();
-                enemyPrefabCount = Enum.GetNames(typeof(AssetPalette.EnemyList)).Length; // count the enemies to use
+                enemyPrefabCount = Enum.GetNames(typeof(AssetPalette.EnemyList)).Length;
             }
-            // instantiate 5 enemies at most on screen at one time
+            // 5 enemies at most on screen at one time
             int randomEnemyCount = UnityEngine.Random.Range(1, 6);
             GameObject[] randomEnemies = new GameObject[randomEnemyCount];
             for (int i = 0; i < randomEnemyCount; i++)
