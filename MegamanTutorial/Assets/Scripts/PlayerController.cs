@@ -38,21 +38,25 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float moveSpeed = 1.5f;
     [SerializeField] float jumpSpeed = 3.7f;
-    [SerializeField] float teleportSpeed = -10f;
 
     [SerializeField] int bulletDamage = 1;
     [SerializeField] float bulletSpeed = 5f;
-    [SerializeField] Transform bulletShootPos;
-    [SerializeField] GameObject bulletPrefab;
 
+    [Header("Audio Clips")]
     [SerializeField] AudioClip teleportClip;
     [SerializeField] AudioClip jumpLandedClip;
     [SerializeField] AudioClip shootBulletClip;
     [SerializeField] AudioClip takingDamageClip;
     [SerializeField] AudioClip explodeEffectClip;
+    [SerializeField] AudioClip energyFillClip;
 
+    [Header("Positions and Prefabs")]
+    [SerializeField] Transform bulletShootPos;
+    [SerializeField] GameObject bulletPrefab;
     [SerializeField] GameObject explodeEffectPrefab;
 
+    [Header("Teleport Settings")]
+    [SerializeField] float teleportSpeed = -10f;
     public enum TeleportState { Descending, Landed, Idle };
     [SerializeField] TeleportState teleportState;
 
@@ -120,7 +124,7 @@ public class PlayerController : MonoBehaviour
             switch (teleportState)
             {
                 case TeleportState.Descending:
-                    // force this to false so the jumped landed sound isn't played
+                    // force this to false so the jump landed sound isn't played
                     isJumping = false;
                     if (isGrounded)
                     {
@@ -169,7 +173,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Freeze Bullets: " + freezeBullets);
         }
 
-        // E for explosions
+        // E for Explosions
         if (Input.GetKeyDown(KeyCode.E))
         {
             Defeat();
@@ -181,6 +185,13 @@ public class PlayerController : MonoBehaviour
         {
             Invincible(!isInvincible);
             Debug.Log("Invincible: " + isInvincible);
+        }
+
+        // L for Life Energy
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            ApplyLifeEnergy(10);
+            Debug.Log("ApplyLifeEnergy(10)");
         }
 
         // K for Keyboard
@@ -378,6 +389,39 @@ public class PlayerController : MonoBehaviour
         // invert facing direction and rotate object 180 degrees on y axis
         isFacingRight = !isFacingRight;
         transform.Rotate(0f, 180f, 0f);
+    }
+
+    public void ApplyLifeEnergy(int amount)
+    {
+        // only apply health if we need it
+        if (currentHealth < maxHealth)
+        {
+            int healthDiff = maxHealth - currentHealth;
+            if (healthDiff > amount) healthDiff = amount;
+            // animate adding health bars via coroutine
+            StartCoroutine(AddLifeEnergy(healthDiff));
+        }
+    }
+
+    private IEnumerator AddLifeEnergy(int amount)
+    {
+        // loop the energy fill audio clip
+        SoundManager.Instance.Play(energyFillClip, true);
+        // increment the health bars with a small delay
+        for (int i = 0; i < amount; i++)
+        {
+            currentHealth++;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
+            yield return new WaitForSeconds(0.05f);
+        }
+        // done playing energy fill clip
+        SoundManager.Instance.Stop();
+    }
+
+    public void ApplyWeaponEnergy(int amount)
+    {
+        // define this function when we get to boss battles and acquiring their weapons
     }
 
     void ShootBullet()

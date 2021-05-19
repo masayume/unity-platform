@@ -153,9 +153,19 @@ MonoBehaviour:
   maxHealth: 1
   contactDamage: 4
   explosionDamage: 0
-  shootBulletClip: {fileID: 8300000, guid: d9d298debc07a5df3a2a87387b177461, type: 3}
+  bulletDamage: 1
+  bulletSpeed: 3
+  bonusItemType: 1
+  bonusBallColor: 1
+  weaponPartColor: 1
+  bonusDestroyDelay: 5
+  bonusVelocity: {x: 0, y: 3}
   damageClip: {fileID: 8300000, guid: 388504d6463a8d5d291065ec219f2628, type: 3}
   blockAttackClip: {fileID: 8300000, guid: 7235602b481b4fc93857fdad62d6837f, type: 3}
+  shootBulletClip: {fileID: 8300000, guid: d9d298debc07a5df3a2a87387b177461, type: 3}
+  energyFillClip: {fileID: 0}
+  bulletShootPos: {fileID: 0}
+  bulletPrefab: {fileID: 0}
   explodeEffectPrefab: {fileID: 2512387075661365191, guid: 61a3edf2285ee2f43b876f5698001992, type: 3}
 --- !u!95 &353063904596482143
 Animator:

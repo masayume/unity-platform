@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BonusBallOrange
+  m_Controller: {fileID: 9100000, guid: fe38c5d188f40997a834eda6ba3bfb38, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: fd9199dda70f15205bcf46ddc8ff46b6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6b0a127805c132ab6b7252764da9f5da, type: 2}

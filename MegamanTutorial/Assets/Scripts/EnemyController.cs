@@ -31,10 +31,20 @@ public class EnemyController : MonoBehaviour
     public int bulletDamage = 1;
     public float bulletSpeed = 3f;
 
+    [Header("Bonus Item Settings")]
+    public ItemScript.ItemTypes bonusItemType;
+    public ItemScript.BonusBallColors bonusBallColor;
+    public ItemScript.WeaponPartColors weaponPartColor;
+    public float bonusDestroyDelay = 5f;
+    public Vector2 bonusVelocity = new Vector2(0, 3f);
+
+    [Header("Audio Clips")]
     public AudioClip damageClip;
     public AudioClip blockAttackClip;
     public AudioClip shootBulletClip;
+    public AudioClip energyFillClip;
 
+    [Header("Positions and Prefabs")]
     public GameObject bulletShootPos;
     public GameObject bulletPrefab;
     public GameObject explodeEffectPrefab;
@@ -96,6 +106,22 @@ public class EnemyController : MonoBehaviour
         explodeEffect.transform.position = sprite.bounds.center;
         explodeEffect.GetComponent<ExplosionScript>().SetDamageValue(this.explosionDamage);
         Destroy(explodeEffect, 2f);
+
+        // get the bonus item prefab
+        GameObject bonusItemPrefab = GameManager.Instance.GetBonusItem(bonusItemType);
+        if (bonusItemPrefab != null)
+        {
+            // instantiate the bonus item
+            GameObject bonusItem = Instantiate(bonusItemPrefab);
+            bonusItem.name = bonusItemPrefab.name;
+            bonusItem.transform.position = explodeEffect.transform.position;
+            bonusItem.GetComponent<ItemScript>().Animate(true);
+            bonusItem.GetComponent<ItemScript>().SetDestroyDelay(bonusDestroyDelay);
+            bonusItem.GetComponent<ItemScript>().SetBonusBallColor(bonusBallColor);
+            bonusItem.GetComponent<ItemScript>().SetWeaponPartColor(weaponPartColor);
+            // give the bonus item a bounce effect
+            bonusItem.GetComponent<Rigidbody2D>().velocity = bonusVelocity;
+        }
     }
 
     void StopDefeatAnimation()

@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     bool initReadyScreen;
 
     int playerScore;
+    int bonusCount;
+    int bonusScore;
 
     float gameRestartTime;
     float gamePlayerReadyTime;
@@ -82,7 +84,7 @@ public class GameManager : MonoBehaviour
                 screenMessageText.alignment = TextAlignmentOptions.Top;
                 screenMessageText.fontStyle = FontStyles.UpperCase;
                 screenMessageText.fontSize = 24;
-                screenMessageText.text = "\n\n\n\nREADY";
+                screenMessageText.text = "\n\n\n\nGET READY !";
                 initReadyScreen = false;
             }
             // countdown READY screen pause
@@ -110,7 +112,8 @@ public class GameManager : MonoBehaviour
             // here is where we can do things while the game is running
             GetWorldViewCoordinates();
             ShowMessage();
-            SpawnEnemies();
+            UpdateScore();
+//            SpawnEnemies();
             RepositionEnemies();
             DestroyStrayBullets();
         }
@@ -162,6 +165,14 @@ public class GameManager : MonoBehaviour
     public void AddScorePoints(int points)
     {
         playerScore += points;
+    }
+
+    // keep track of how many bonus balls are collected and add up the points
+    // at the end of a boss battle the bonus score would be added to the overall player score
+    public void AddBonusPoints(int points)
+    {
+        bonusCount++;
+        bonusScore += points;
     }
 
     private void FreezePlayer(bool freeze)
@@ -283,6 +294,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void UpdateScore()
+    {
+        // update the player score each wave by adding on any bonus points
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        {
+            playerScore += bonusScore;
+            bonusCount = 0;
+            bonusScore = 0;
+        }
+    }
+
     private void SpawnEnemies()
     {
         if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
@@ -374,5 +396,138 @@ public class GameManager : MonoBehaviour
                 Destroy(bullet);
             }
         }
+    }
+
+    // internal to the game manager to pick a random bonus item
+    // use the function below GetBonusItem in enemies and objects
+    // that need to generate a bonus item drop upon their explosion
+    private ItemScript.ItemTypes PickRandomBonusItem()
+    {
+        /*
+		 * Item info from this source
+		 * http://tasvideos.org/GameResources/NES/Rockman.html
+		 * 
+		 * Type					MM1 (random seeds)
+		 * extra life			1/128 (63)
+		 * big weapon refill	2/128 (5F and 60)
+		 * big energy refill	2/128 (61 and 62)
+		 * small weapon refill	15/128 (41-4F)
+		 * small energy refill	15/128 (50-5E)
+		 * bonus pearl			69/128 (0C-40 and 70-7F)
+		 * nothing				24/128 (00-0B and 64-6F)
+		 * 
+		 * Array indexes based on the random seeds
+		 * Index 0		nothing
+		 * Index 1		bonus pearl
+		 * Index 2		small weapon refill
+		 * Index 3		small energy refill
+		 * Index 4		big weapon refill
+		 * Index 5		big energy refill
+		 * Index 6		extra life
+		 * Index 7		nothing
+		 * Index 8		bonus pearl
+		 * 
+		 * 
+		 * This function is based off the Unity documentation
+		 * 
+		 * Choosing Items with Different Probabilities
+		 * https://docs.unity3d.com/2019.3/Documentation/Manual/RandomNumbers.html
+		 */
+        // probabilities (random seeds) in decimal values
+        float[] probabilities = {
+            12, 53, 15, 15, 2, 2, 1, 12, 16
+        };
+
+        // sum of all probabilities
+        float total = 0;
+
+        // item types indexed to match probabilities
+        ItemScript.ItemTypes[] items = {
+            ItemScript.ItemTypes.Nothing,
+            ItemScript.ItemTypes.BonusBall,
+            ItemScript.ItemTypes.WeaponEnergySmall,
+            ItemScript.ItemTypes.LifeEnergySmall,
+            ItemScript.ItemTypes.WeaponEnergyBig,
+            ItemScript.ItemTypes.LifeEnergyBig,
+            ItemScript.ItemTypes.ExtraLife,
+            ItemScript.ItemTypes.Nothing,
+            ItemScript.ItemTypes.BonusBall
+        };
+
+        // add up all the probability values to get the total
+        foreach (float prob in probabilities)
+        {
+            total += prob;
+        }
+
+        // pick a point in the total
+        float randomPoint = UnityEngine.Random.value * total;
+
+        // use the chosen index value to get the item type to return
+        for (int i = 0; i < probabilities.Length; i++)
+        {
+            if (randomPoint < probabilities[i])
+            {
+                //return i;
+                return items[i];
+            }
+            else
+            {
+                randomPoint -= probabilities[i];
+            }
+        }
+        //return probabilities.Length - 1;
+        return items[probabilities.Length - 1];
+    }
+
+    // enemies and objects that offer bonus items should call this function
+    public GameObject GetBonusItem(ItemScript.ItemTypes itemType)
+    {
+        GameObject bonusItem = null;
+
+        // pick a random bonus item
+        if (itemType == ItemScript.ItemTypes.Random)
+        {
+            itemType = PickRandomBonusItem();
+        }
+
+        // get bonus item prefab from type
+
+        switch (itemType)
+        {
+            case ItemScript.ItemTypes.Nothing:
+                bonusItem = null;
+                break;
+            case ItemScript.ItemTypes.BonusBall:
+                bonusItem = assetPalette.itemPrefabs[(int)AssetPalette.ItemList.BonusBall];
+                break;
+            case ItemScript.ItemTypes.ExtraLife:
+                bonusItem = assetPalette.itemPrefabs[(int)AssetPalette.ItemList.ExtraLife];
+                break;
+            case ItemScript.ItemTypes.LifeEnergyBig:
+                bonusItem = assetPalette.itemPrefabs[(int)AssetPalette.ItemList.LifeEnergyBig];
+                break;
+            case ItemScript.ItemTypes.LifeEnergySmall:
+                bonusItem = assetPalette.itemPrefabs[(int)AssetPalette.ItemList.LifeEnergySmall];
+                break;
+            case ItemScript.ItemTypes.WeaponEnergyBig:
+                bonusItem = assetPalette.itemPrefabs[(int)AssetPalette.ItemList.WeaponEnergyBig];
+                break;
+            case ItemScript.ItemTypes.WeaponEnergySmall:
+                bonusItem = assetPalette.itemPrefabs[(int)AssetPalette.ItemList.WeaponEnergySmall];
+                break;
+            case ItemScript.ItemTypes.MagnetBeam:
+                bonusItem = assetPalette.itemPrefabs[(int)AssetPalette.ItemList.MagnetBeam];
+                break;
+            case ItemScript.ItemTypes.WeaponPart:
+                bonusItem = assetPalette.itemPrefabs[(int)AssetPalette.ItemList.WeaponPart];
+                break;
+            case ItemScript.ItemTypes.Yashichi:
+                bonusItem = assetPalette.itemPrefabs[(int)AssetPalette.ItemList.Yashichi];
+                break;
+        }
+
+        // return bonus item prefab
+        return bonusItem;
     }
 }
