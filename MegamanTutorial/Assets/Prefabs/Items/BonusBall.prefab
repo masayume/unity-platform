@@ -171,12 +171,12 @@ MonoBehaviour:
   weaponEnergy: 0
   bonusPoints: 1000
   itemClip: {fileID: 8300000, guid: b37b881dab35e05d797488168c660ecb, type: 3}
-  racBonusBallBlue: {fileID: 0}
-  racBonusBallGray: {fileID: 0}
-  racBonusBallGreen: {fileID: 0}
-  racBonusBallOrange: {fileID: 0}
-  racBonusBallRed: {fileID: 0}
-  bonusBallColor: 1
+  racBonusBallBlue: {fileID: 22100000, guid: 3e184274a00045f25a42b75eb668a168, type: 2}
+  racBonusBallGray: {fileID: 22100000, guid: 6a0749adf59e9a102956e60a9027f31f, type: 2}
+  racBonusBallGreen: {fileID: 22100000, guid: 1733d112f596e267cbc7ac54dcbaa4c1, type: 2}
+  racBonusBallOrange: {fileID: 22100000, guid: 1397951b440d440758aee3b518b01710, type: 2}
+  racBonusBallRed: {fileID: 22100000, guid: 9e7aa7df5102cf3f09bf7fa15463bf68, type: 2}
+  bonusBallColor: 0
   racWeaponPartBlue: {fileID: 0}
   racWeaponPartOrange: {fileID: 0}
   racWeaponPartRed: {fileID: 0}

@@ -180,4 +180,4 @@ MonoBehaviour:
   racWeaponPartBlue: {fileID: 22100000, guid: 4d0480e30fda89e75b2cf2e4d59fcec6, type: 2}
   racWeaponPartOrange: {fileID: 22100000, guid: dd25a19dd60cc7bac9160cd3d6fa7c29, type: 2}
   racWeaponPartRed: {fileID: 22100000, guid: 8dd5a375e2ef07621bf9d1caa1807398, type: 2}
-  weaponPartColor: 1
+  weaponPartColor: 0
