@@ -111,9 +111,9 @@ public class GameManager : MonoBehaviour
         {
             // here is where we can do things while the game is running
             GetWorldViewCoordinates();
-            ShowMessage();
+            // ShowMessage();
             UpdateScore();
-//            SpawnEnemies();
+            // SpawnEnemies();
             RepositionEnemies();
             DestroyStrayBullets();
         }

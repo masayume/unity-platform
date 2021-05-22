@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] Transform player;
-    [SerializeField] float tileOffset;
-    [SerializeField] Vector3 offsetPos;
-    [SerializeField] Vector3 boundsMin;
-    [SerializeField] Vector3 boundsMax;
+    public Transform player;
+    public float tileOffset;
+    public Vector3 offsetPos;
+    public Vector3 boundsMin;
+    public Vector3 boundsMax;
 
     
     // Start is called before the first frame update
