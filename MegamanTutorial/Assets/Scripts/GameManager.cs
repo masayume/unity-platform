@@ -62,6 +62,13 @@ public class GameManager : MonoBehaviour
 
         // Set GameManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene
         DontDestroyOnLoad(gameObject);
+
+        // set the asset palette up only one time
+        if (assetPalette == null)
+        {
+            assetPalette = GetComponent<AssetPalette>();
+            enemyPrefabCount = Enum.GetNames(typeof(AssetPalette.EnemyList)).Length;
+        }
     }
 
     // called third
@@ -309,12 +316,6 @@ public class GameManager : MonoBehaviour
     {
         if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
-            // set the asset palette up only one time
-            if (assetPalette == null)
-            {
-                assetPalette = GetComponent<AssetPalette>();
-                enemyPrefabCount = Enum.GetNames(typeof(AssetPalette.EnemyList)).Length;
-            }
             // 5 enemies at most on screen at one time
             int randomEnemyCount = UnityEngine.Random.Range(1, 6);
             GameObject[] randomEnemies = new GameObject[randomEnemyCount];

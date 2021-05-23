@@ -68,6 +68,42 @@ TextureImporter:
   - first:
       213: -7238795191721828903
     second: BigEye_Jumping_Orange
+  - first:
+      213: 5852019012255676814
+    second: Blaster1_Red
+  - first:
+      213: -8904810368616773360
+    second: Blaster2_Red
+  - first:
+      213: -4105759055608461712
+    second: Blaster3_Red
+  - first:
+      213: 6783053686347506023
+    second: Blaster4_Red
+  - first:
+      213: 8521763619538590367
+    second: Blaster1_Orange
+  - first:
+      213: 24516260657374521
+    second: Blaster2_Orange
+  - first:
+      213: 5526297054552531677
+    second: Blaster3_Orange
+  - first:
+      213: 4057960441014977838
+    second: Blaster4_Orange
+  - first:
+      213: 2044468052953663848
+    second: Blaster1_Blue
+  - first:
+      213: -6491441291470000421
+    second: Blaster2_Blue
+  - first:
+      213: -4049050300606909917
+    second: Blaster3_Blue
+  - first:
+      213: 3330567928590290545
+    second: Blaster4_Blue
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -89,6 +125,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -120,9 +157,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -658,6 +698,258 @@ TextureImporter:
       bones: []
       spriteID: 9dd5d9b3022aa8b90800000000000000
       internalID: -7238795191721828903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blaster1_Red
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 109
+        width: 9
+        height: 16
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e89f45c494c863150800000000000000
+      internalID: 5852019012255676814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blaster2_Red
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 109
+        width: 8
+        height: 16
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 019c1624622cb6480800000000000000
+      internalID: -8904810368616773360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blaster3_Red
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 109
+        width: 9
+        height: 16
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0764d1564e96507c0800000000000000
+      internalID: -4105759055608461712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blaster4_Red
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 109
+        width: 15
+        height: 16
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 761a52bb36f322e50800000000000000
+      internalID: 6783053686347506023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blaster1_Orange
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 109
+        width: 9
+        height: 16
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9ad17a9cd2634670800000000000000
+      internalID: 8521763619538590367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blaster2_Orange
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 109
+        width: 8
+        height: 16
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93524bfb869175000800000000000000
+      internalID: 24516260657374521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blaster3_Orange
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 109
+        width: 9
+        height: 16
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd224eb34e951bc40800000000000000
+      internalID: 5526297054552531677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blaster4_Orange
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 109
+        width: 15
+        height: 16
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2509476585c05830800000000000000
+      internalID: 4057960441014977838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blaster1_Blue
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 109
+        width: 9
+        height: 16
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86900f2bcd86f5c10800000000000000
+      internalID: 2044468052953663848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blaster2_Blue
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 109
+        width: 8
+        height: 16
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdea0add984c9e5a0800000000000000
+      internalID: -6491441291470000421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blaster3_Blue
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 109
+        width: 9
+        height: 16
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 322f2a25432eec7c0800000000000000
+      internalID: -4049050300606909917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blaster4_Blue
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 109
+        width: 15
+        height: 16
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17eceeb82ed883e20800000000000000
+      internalID: 3330567928590290545
       vertices: []
       indices: 
       edges: []
