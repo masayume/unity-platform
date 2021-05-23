@@ -25,10 +25,6 @@ namespace SimpleInputNamespace
 		[SerializeField]
 		private float movementAreaRadius = 75f;
 
-		[Tooltip( "Radius of the deadzone at the center of the joystick that will yield no input" )]
-		[SerializeField]
-		private float deadzoneRadius;
-
 		[SerializeField]
 		private bool isDynamicJoystick = false;
 
@@ -44,7 +40,6 @@ namespace SimpleInputNamespace
 
 		private float _1OverMovementAreaRadius;
 		private float movementAreaRadiusSqr;
-		private float deadzoneRadiusSqr;
 
 		private Vector2 joystickInitialPos;
 
@@ -57,27 +52,26 @@ namespace SimpleInputNamespace
 		{
 			joystickTR = (RectTransform) transform;
 			thumbTR = thumb.rectTransform;
-			background = GetComponent<Graphic>();
+
+			Graphic bgGraphic = GetComponent<Graphic>();
+			if( bgGraphic )
+			{
+				background = bgGraphic;
+				background.raycastTarget = false;
+			}
 
 			if( isDynamicJoystick )
 			{
 				opacity = 0f;
 				thumb.raycastTarget = false;
-				if( background )
-					background.raycastTarget = false;
 
 				OnUpdate();
 			}
 			else
-			{
 				thumb.raycastTarget = true;
-				if( background )
-					background.raycastTarget = true;
-			}
 
 			_1OverMovementAreaRadius = 1f / movementAreaRadius;
 			movementAreaRadiusSqr = movementAreaRadius * movementAreaRadius;
-			deadzoneRadiusSqr = deadzoneRadius * deadzoneRadius;
 
 			joystickInitialPos = joystickTR.anchoredPosition;
 			thumbTR.localPosition = Vector3.zero;
@@ -87,12 +81,7 @@ namespace SimpleInputNamespace
 		{
 			SimpleInputDragListener eventReceiver;
 			if( !isDynamicJoystick )
-			{
-				if( background )
-					eventReceiver = background.gameObject.AddComponent<SimpleInputDragListener>();
-				else
-					eventReceiver = thumbTR.gameObject.AddComponent<SimpleInputDragListener>();
-			}
+				eventReceiver = thumbTR.gameObject.AddComponent<SimpleInputDragListener>();
 			else
 			{
 				if( !dynamicJoystickMovementArea )
@@ -130,15 +119,6 @@ namespace SimpleInputNamespace
 			SimpleInput.OnUpdate -= OnUpdate;
 		}
 
-#if UNITY_EDITOR
-		private void OnValidate()
-		{
-			_1OverMovementAreaRadius = 1f / movementAreaRadius;
-			movementAreaRadiusSqr = movementAreaRadius * movementAreaRadius;
-			deadzoneRadiusSqr = deadzoneRadius * deadzoneRadius;
-		}
-#endif
-
 		public void OnPointerDown( PointerEventData eventData )
 		{
 			joystickHeld = true;
@@ -166,21 +146,16 @@ namespace SimpleInputNamespace
 			else if( movementAxes == MovementAxes.Y )
 				direction.x = 0f;
 
-			if( direction.sqrMagnitude <= deadzoneRadiusSqr )
-				m_value.Set( 0f, 0f );
-			else
+			if( direction.sqrMagnitude > movementAreaRadiusSqr )
 			{
-				if( direction.sqrMagnitude > movementAreaRadiusSqr )
-				{
-					Vector2 directionNormalized = direction.normalized * movementAreaRadius;
-					if( canFollowPointer )
-						joystickTR.localPosition += (Vector3) ( direction - directionNormalized );
+				Vector2 directionNormalized = direction.normalized * movementAreaRadius;
+				if( canFollowPointer )
+					joystickTR.localPosition += (Vector3) ( direction - directionNormalized );
 
-					direction = directionNormalized;
-				}
-
-				m_value = direction * _1OverMovementAreaRadius * valueMultiplier;
+				direction = directionNormalized;
 			}
+
+			m_value = direction * _1OverMovementAreaRadius * valueMultiplier;
 
 			thumbTR.localPosition = direction;
 

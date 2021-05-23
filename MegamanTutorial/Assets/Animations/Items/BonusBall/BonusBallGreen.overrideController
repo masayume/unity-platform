@@ -7,7 +7,7 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BonusBallGreen
-  m_Controller: {fileID: 9100000, guid: fe38c5d188f40997a834eda6ba3bfb38, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6580e1cd97238cd42950844e0fb62603, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: fd9199dda70f15205bcf46ddc8ff46b6, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: cbee43689e2b60adea0d79d0b7ab4284, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9e70675e07e48004cbb18a27098a093a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e60841def83de224ba2fef0eef826284, type: 2}

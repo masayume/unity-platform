@@ -30,15 +30,15 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Cannon
+    path: BulletShootPos
   m_ScaleCurves: []
   m_FloatCurves:
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.8333333
-        value: -0.03
+        time: 0
+        value: -0.035
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -56,7 +56,7 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.8333333
+        time: 0
         value: 0.11999999
         inSlope: 0
         outSlope: 0
@@ -75,8 +75,8 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.8333333
-        value: 0.15
+        time: 0
+        value: 0.16
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -93,14 +93,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 7365574002475698461, guid: cb6bbe2e013cdd96eaead58db4d62155, type: 3}
-    - time: 0.8333333
-      value: {fileID: 7365574002475698461, guid: cb6bbe2e013cdd96eaead58db4d62155, type: 3}
+      value: {fileID: 7365574002475698461, guid: 5602b2ebe6faba54f8b7dd3f1b14db26,
+        type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 12
+  m_SampleRate: 1
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -115,7 +114,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     - serializedVersion: 2
-      path: 1300486833
+      path: 421009590
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -143,14 +142,13 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     pptrCurveMapping:
-    - {fileID: 7365574002475698461, guid: cb6bbe2e013cdd96eaead58db4d62155, type: 3}
-    - {fileID: 7365574002475698461, guid: cb6bbe2e013cdd96eaead58db4d62155, type: 3}
+    - {fileID: 7365574002475698461, guid: 5602b2ebe6faba54f8b7dd3f1b14db26, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.9166666
+    m_StopTime: 1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -170,8 +168,8 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.8333333
-        value: -0.03
+        time: 0
+        value: -0.035
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -189,7 +187,7 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.8333333
+        time: 0
         value: 0.11999999
         inSlope: 0
         outSlope: 0
@@ -208,8 +206,8 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.8333333
-        value: 0.15
+        time: 0
+        value: 0.16
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -239,7 +237,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Cannon
+    path: BulletShootPos
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -258,7 +256,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Cannon
+    path: BulletShootPos
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -277,7 +275,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Cannon
+    path: BulletShootPos
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves: []

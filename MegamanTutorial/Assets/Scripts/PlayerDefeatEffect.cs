@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ public class PlayerDefeatEffect : MonoBehaviour
         {
             string explosionName = "Explosion" + (i + 1).ToString();
             explosions[i] = transform.Find(explosionName).gameObject;
-        }        
+        }
     }
 
     // Update is called once per frame
@@ -44,6 +44,5 @@ public class PlayerDefeatEffect : MonoBehaviour
             position.z += explosionVectors[i].z * explosionSpeed * Time.deltaTime;
             explosions[i].transform.position = position;
         }
-            
     }
 }

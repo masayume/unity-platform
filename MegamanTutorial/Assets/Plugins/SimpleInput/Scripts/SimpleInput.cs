@@ -1,6 +1,4 @@
-﻿//#define GET_AXIS_USE_MOVE_TOWARDS
-
-using SimpleInputNamespace;
+﻿using SimpleInputNamespace;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -116,29 +114,7 @@ public class SimpleInput : MonoBehaviour
 	}
 	#endregion
 
-#if GET_AXIS_USE_MOVE_TOWARDS
-	/// <summary>
-	/// Speed to move SimpleInput.GetAxis' value towards SimpleInput.GetAxisRaw's value in units per second
-	/// </summary>
-	public static float GetAxisSensitivity = 3f;
-#else
-	/// <summary>
-	/// Lerp modifier to move SimpleInput.GetAxis' value towards SimpleInput.GetAxisRaw's value
-	/// </summary>
-	public static float GetAxisSensitivity = 20f;
-#endif
-	/// <summary>
-	/// When SimpleInput.GetAxisRaw's value is 0f and SimpleInput.GetAxis' value is within this range, SimpleInput.GetAxis' value will snap to 0f
-	/// </summary>
-	public static float GetAxisDeadZone = 0.025f;
-	/// <summary>
-	/// If set to true and the values of SimpleInput.GetAxis and SimpleInput.GetAxisRaw have different signs, SimpleInput.GetAxis will jump to 0f and continue from there
-	/// </summary>
-	public static bool GetAxisSnapValue = true;
-	/// <summary>
-	/// Sets whether or not Time.timeScale should affect SimpleInput.GetAxis' sensitivity
-	/// </summary>
-	public static bool GetAxisTimeScaleDependent = true;
+	public static float AxisLerpModifier = 20f;
 
 	private static bool m_trackUnityInput = true;
 	public static bool TrackUnityInput
@@ -557,7 +533,7 @@ public class SimpleInput : MonoBehaviour
 				trackedUnityMouseButtons[i].value = Input.GetMouseButton( trackedUnityMouseButtons[i].Key );
 		}
 
-		float sensitivity = GetAxisSensitivity * ( GetAxisTimeScaleDependent ? Time.deltaTime : Time.unscaledDeltaTime );
+		float lerpModifier = AxisLerpModifier * Time.deltaTime;
 
 		for( int i = 0; i < axesList.Count; i++ )
 		{
@@ -574,21 +550,11 @@ public class SimpleInput : MonoBehaviour
 				}
 			}
 
-#if GET_AXIS_USE_MOVE_TOWARDS
-			if( axis.value >= 0 )
-				axis.value = Mathf.MoveTowards( axis.valueRaw >= 0 || !GetAxisSnapValue ? axis.value : 0, axis.valueRaw, sensitivity );
-			else
-				axis.value = Mathf.MoveTowards( axis.valueRaw <= 0 || !GetAxisSnapValue ? axis.value : 0, axis.valueRaw, sensitivity );
-#else
-			if( axis.value >= 0 )
-				axis.value = Mathf.Lerp( axis.valueRaw >= 0 || !GetAxisSnapValue ? axis.value : 0, axis.valueRaw, sensitivity );
-			else
-				axis.value = Mathf.Lerp( axis.valueRaw <= 0 || !GetAxisSnapValue ? axis.value : 0, axis.valueRaw, sensitivity );
-#endif
+			axis.value = Mathf.Lerp( axis.value, axis.valueRaw, lerpModifier );
 
 			if( axis.valueRaw == 0f && axis.value != 0f )
 			{
-				if( Mathf.Abs( axis.value ) < GetAxisDeadZone )
+				if( Mathf.Abs( axis.value ) < 0.025f )
 					axis.value = 0f;
 			}
 		}

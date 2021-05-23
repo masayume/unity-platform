@@ -7,7 +7,7 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WeaponPartRed
-  m_Controller: {fileID: 9100000, guid: a6fc23bbc66bc7b9695a60edd3c1d723, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6edf9fa9fa5573245a4d36449476abec, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: e461864f253670baba86a7bb9c92c11c, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 11b6c7b46c5ab43a99108ea71bb5ad24, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c6452acbb6f8e864ea4fbfcbee7cc4fe, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 28e2341ad2354be408647b46988e1405, type: 2}

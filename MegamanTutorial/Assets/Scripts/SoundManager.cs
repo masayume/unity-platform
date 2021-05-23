@@ -43,6 +43,7 @@ public class SoundManager : MonoBehaviour
     // Play a single clip through the sound effects source.
     public void Play(AudioClip clip, bool loop = false)
     {
+        EffectsSource.loop = loop;
         EffectsSource.clip = clip;
         EffectsSource.Play();
     }

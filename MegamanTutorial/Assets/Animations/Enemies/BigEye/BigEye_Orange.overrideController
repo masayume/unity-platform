@@ -7,9 +7,9 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BigEye_Orange
-  m_Controller: {fileID: 9100000, guid: 4e800226029b2e7379398039ce69fe25, type: 2}
+  m_Controller: {fileID: 9100000, guid: 21b0ede3c7688944199e22f3c3921efb, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: ddebb3fda0ae15da498a91df22b650e7, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: f31fa2ac03d23dc519de2cefcc6b4c07, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 6ee0a6ca3fc98841f8a03bc58b0d1c43, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: db9e4df118489907d855025b9b4b4c4c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: dd56650d331d79c40bd199de3916f2ad, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: eaedad43dcb1dcd43b8cbdb6ba3c25b8, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 8c0365407e147af42b914a9295c78f25, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4d7ad9c883fd43a4682974cbe114b6e6, type: 2}

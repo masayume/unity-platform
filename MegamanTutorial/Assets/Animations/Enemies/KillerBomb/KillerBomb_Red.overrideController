@@ -7,7 +7,7 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: KillerBomb_Red
-  m_Controller: {fileID: 9100000, guid: 45f7c1f90cfe70ba0bdd0fa94aad7ceb, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1b839ea7938091d439693886e4d873f5, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 58b5af15ea13b80f4bd496f0266495d5, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 1fd5407972057e73b8fc263082186155, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9863ddf527feb214eb456f28dd11290f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: afdd1908b34b29a4eb7dcc36e4dbc261, type: 2}

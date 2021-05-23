@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -60,7 +60,7 @@ public class CameraTransition : MonoBehaviour
     bool transition;
     bool getCamPrevious = true;
     bool callPreTransitionEvent = true;
-    bool callPostTransitionEvent = true;
+    bool callPostTranisionEvent = true;
 
     // Start is called before the first frame update
     void Start()
@@ -164,7 +164,7 @@ public class CameraTransition : MonoBehaviour
                 transitionTimer = preTransitionDelay;
                 // allow the transition events to fire
                 callPreTransitionEvent = true;
-                callPostTransitionEvent = true;
+                callPostTranisionEvent = true;
                 // camera start and player positions
                 cameraMoveStart = cam.transform.position;
                 playerMoveStart = player.transform.position;
@@ -272,9 +272,9 @@ public class CameraTransition : MonoBehaviour
     private void CallPostTransitionEvent()
     {
         // call post transition event
-        if (callPostTransitionEvent)
+        if (callPostTranisionEvent)
         {
-            callPostTransitionEvent = false;
+            callPostTranisionEvent = false;
             postTransitionEvent.Invoke();
         }
     }
