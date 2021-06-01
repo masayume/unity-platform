@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Blaster_Orange
+  m_Controller: {fileID: 9100000, guid: 062f3e24dbbe9ef018f08ea8834390c9, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 0d06e266fade8edc3b134a27527e8110, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 119b800b28ab63b1a96cd7ef7603cb24, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 602892586059d17d0a24d141448c26ae, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 94338b00d1a930ee38716b7d9bd9447d, type: 2}
