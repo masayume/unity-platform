@@ -104,6 +104,36 @@ TextureImporter:
   - first:
       213: 3330567928590290545
     second: Blaster4_Blue
+  - first:
+      213: -7132066521865446883
+    second: ScrewDriver1_Orange
+  - first:
+      213: -1824010462025688999
+    second: ScrewDriver2_Orange
+  - first:
+      213: -3304025290838259727
+    second: ScrewDriver3_Orange
+  - first:
+      213: -4229112140190598136
+    second: ScrewDriver4_Orange
+  - first:
+      213: -5584428566670574038
+    second: ScrewDriver5_Orange
+  - first:
+      213: -3374581645662753266
+    second: ScrewDriver1_Blue
+  - first:
+      213: 1704042556262821158
+    second: ScrewDriver2_Blue
+  - first:
+      213: -3965539687778496418
+    second: ScrewDriver3_Blue
+  - first:
+      213: 8834166095410505711
+    second: ScrewDriver4_Blue
+  - first:
+      213: 2684179031022335059
+    second: ScrewDriver5_Blue
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -950,6 +980,216 @@ TextureImporter:
       bones: []
       spriteID: 17eceeb82ed883e20800000000000000
       internalID: 3330567928590290545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScrewDriver1_Orange
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 109
+        width: 16
+        height: 8
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1a11c1294fc50d90800000000000000
+      internalID: -7132066521865446883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScrewDriver2_Orange
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 109
+        width: 16
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 958dc581620dfa6e0800000000000000
+      internalID: -1824010462025688999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScrewDriver3_Orange
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 109
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f7cda2e08eb522d0800000000000000
+      internalID: -3304025290838259727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScrewDriver4_Orange
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 109
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80cb5a05aec2f45c0800000000000000
+      internalID: -4229112140190598136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScrewDriver5_Orange
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 109
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2e7e026ecf1082b0800000000000000
+      internalID: -5584428566670574038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScrewDriver1_Blue
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 109
+        width: 16
+        height: 8
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0ee7b06fd31b21d0800000000000000
+      internalID: -3374581645662753266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScrewDriver2_Blue
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 109
+        width: 16
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62da1303da9f5a710800000000000000
+      internalID: 1704042556262821158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScrewDriver3_Blue
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 109
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e50df3f0aa297f8c0800000000000000
+      internalID: -3965539687778496418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScrewDriver4_Blue
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 109
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe72eb32243499a70800000000000000
+      internalID: 8834166095410505711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScrewDriver5_Blue
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 109
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35473a97b9e104520800000000000000
+      internalID: 2684179031022335059
       vertices: []
       indices: 
       edges: []
