@@ -712,21 +712,21 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.9166667
-    functionName: 
+    functionName: ShootBullet
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.5833334
-    functionName: 
+    functionName: ShootBullet
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 2.5
-    functionName: 
+    functionName: OpenAnimationStop
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -2876,6 +2876,7 @@ GameObject:
   - component: {fileID: 1338845863}
   - component: {fileID: 1338845862}
   - component: {fileID: 1338845861}
+  - component: {fileID: 1338845867}
   m_Layer: 10
   m_Name: ScrewDriver
   m_TagString: Enemy
@@ -3050,6 +3051,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1338845867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338845860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8d1d4a487ee061e5ae20ac5189d6fc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openDelay: 0.25
+  playerRange: 2
+  screwDriverColor: 0
+  screwDriverState: 0
+  screwDriverOrientation: 0
+  racScrewDriverBlue: {fileID: 0}
+  racScrewDriverOrange: {fileID: 0}
 --- !u!1 &1346192123
 GameObject:
   m_ObjectHideFlags: 0
