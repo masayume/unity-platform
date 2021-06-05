@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     // Singleton instance
     public static GameManager Instance = null;
 
+    // flag to trigger the next scene
+    bool startNextScene;
+
     AssetPalette assetPalette;
     int enemyPrefabCount;
 
@@ -33,6 +36,9 @@ public class GameManager : MonoBehaviour
 
     public float gameRestartDelay = 5f;
     public float gamePlayerReadyDelay = 3f;
+
+    public enum GameStates { TitleScreen, MainScene };
+    public GameStates gameState = GameStates.TitleScreen;
 
     public struct WorldViewCoordinates
     {
@@ -71,6 +77,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // called first
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    // called when the game is terminated
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // called second
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // init functions for each scene / game state
+        switch (gameState)
+        {
+            case GameStates.TitleScreen:
+                StartTitleScreen();
+                break;
+            case GameStates.MainScene:
+                StartMainScene();
+                break;
+        }
+    }
+
     // called third
     private void Start()
     {
@@ -78,6 +111,62 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     private void Update()
+    {
+        // game loop functions for each scene / game state
+        switch (gameState)
+        {
+            case GameStates.TitleScreen:
+                TitleScreenLoop();
+                break;
+            case GameStates.MainScene:
+                MainSceneLoop();
+                break;
+        }
+    }
+
+    public void StartNextScene()
+    {
+        // flag to trigger starting the next scene
+        // scenes call this function to tell the GameManager they're done
+        startNextScene = true;
+    }
+
+    private void StartTitleScreen()
+    {
+        // add any init code here for title screen
+    }
+
+    private void TitleScreenLoop()
+    {
+        // scene change triggered by StartNextScene()
+        if (startNextScene)
+        {
+            // can do other things here before loading the next scene
+            startNextScene = false;
+            gameState = GameStates.MainScene;
+            SceneManager.LoadScene("Main Scene");
+        }
+    }
+
+    private void StartMainScene()
+    {
+        // game loop vars
+        isGameOver = false;
+        playerReady = true;
+        initReadyScreen = true;
+        firstMessage = true;
+        gamePlayerReadyTime = gamePlayerReadyDelay;
+        // get tmp text objects for score and screen message
+        playerScoreText = GameObject.Find("PlayerScore").GetComponent<TextMeshProUGUI>();
+        screenMessageText = GameObject.Find("ScreenMessage").GetComponent<TextMeshProUGUI>();
+        // set up the scene music - 3/4 volume, loop, and play
+        SoundManager.Instance.MusicSource.clip = GameObject.Find("Main Scene").GetComponent<MainScene>().musicClip;
+        SoundManager.Instance.MusicSource.volume = 0.75f;
+        SoundManager.Instance.MusicSource.loop = true;
+        SoundManager.Instance.MusicSource.Play();
+    }
+
+    private void MainSceneLoop()
     {
         // player ready screen - wait the delay time and show READY on screen
         if (playerReady)
@@ -133,39 +222,6 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
-    }
-
-    // called first
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    // called when the game is terminated
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    // called second
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // Do Startup Functions - Scene has to be fully loaded
-        // otherwise we can't get a handle on the player score text object
-        StartGame();
-    }
-
-    // initializes and starts the game
-    private void StartGame()
-    {
-        isGameOver = false;
-        playerReady = true;
-        initReadyScreen = true;
-        firstMessage = true;
-        gamePlayerReadyTime = gamePlayerReadyDelay;
-        playerScoreText = GameObject.Find("PlayerScore").GetComponent<TextMeshProUGUI>();
-        screenMessageText = GameObject.Find("ScreenMessage").GetComponent<TextMeshProUGUI>();
-        SoundManager.Instance.MusicSource.Play();
     }
 
     // objects that offer score points should call this method upon their defeat to add to the player's score
@@ -397,26 +453,6 @@ public class GameManager : MonoBehaviour
                 Destroy(bullet);
             }
         }
-    }
-
-    // display a message that a checkpoint has been reached
-    // trigger this through a camera transition post delay event
-    public void CheckpointReached()
-    {
-        StartCoroutine(CoCheckpointReached());
-    }
-
-    private IEnumerator CoCheckpointReached()
-    {
-        // show checkpoint message on screen
-        screenMessageText.alignment = TextAlignmentOptions.Center;
-        screenMessageText.alignment = TextAlignmentOptions.Top;
-        screenMessageText.fontStyle = FontStyles.UpperCase;
-        screenMessageText.fontSize = 24;
-        screenMessageText.text = "CHECKPOINT REACHED";
-        // remove message after 5 seconds
-        yield return new WaitForSeconds(5f);
-        screenMessageText.text = "";
     }
 
     // internal to the game manager to pick a random bonus item
