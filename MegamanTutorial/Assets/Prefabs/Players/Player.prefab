@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6714626527013784874
+--- !u!1 &7767292613286763991
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6714626527013784865}
-  - component: {fileID: 6714626527013784870}
-  - component: {fileID: 6714626527013784871}
-  - component: {fileID: 6714626527013784868}
-  - component: {fileID: 6714626527013784869}
-  - component: {fileID: 6714626527013784864}
+  - component: {fileID: 7767292613286764008}
+  m_Layer: 9
+  m_Name: BulletShootPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7767292613286764008
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7767292613286763991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7767292614320373588}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7767292614320373599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7767292614320373588}
+  - component: {fileID: 7767292614320373587}
+  - component: {fileID: 7767292614320373586}
+  - component: {fileID: 7767292614320373585}
+  - component: {fileID: 7767292614320373584}
+  - component: {fileID: 7767292614320373589}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -21,28 +51,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6714626527013784865
+--- !u!4 &7767292614320373588
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6714626527013784874}
+  m_GameObject: {fileID: 7767292614320373599}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
-  - {fileID: 6714626527859830685}
+  - {fileID: 7767292613286764008}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6714626527013784870
+--- !u!212 &7767292614320373587
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6714626527013784874}
+  m_GameObject: {fileID: 7767292614320373599}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -51,7 +81,6 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -88,14 +117,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &6714626527013784871
+--- !u!95 &7767292614320373586
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6714626527013784874}
+  m_GameObject: {fileID: 7767292614320373599}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: ca782a5558efe1d479a3df3744c31127, type: 2}
@@ -107,13 +136,13 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!61 &6714626527013784868
+--- !u!61 &7767292614320373585
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6714626527013784874}
+  m_GameObject: {fileID: 7767292614320373599}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -133,14 +162,14 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.17, y: 0.22}
   m_EdgeRadius: 0
---- !u!50 &6714626527013784869
+--- !u!50 &7767292614320373584
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6714626527013784874}
+  m_GameObject: {fileID: 7767292614320373599}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -154,13 +183,13 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &6714626527013784864
+--- !u!114 &7767292614320373589
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6714626527013784874}
+  m_GameObject: {fileID: 7767292614320373599}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 736ec5c7521408c48bd0ba1e75b082b4, type: 3}
@@ -178,40 +207,10 @@ MonoBehaviour:
   takingDamageClip: {fileID: 8300000, guid: d96822d18e3db4b4fbad59ec982ae8d9, type: 3}
   explodeEffectClip: {fileID: 8300000, guid: d77b117601b937d4db51cd4822ffc7ae, type: 3}
   energyFillClip: {fileID: 8300000, guid: 04ac059273abc3d43bb7759907019291, type: 3}
-  bulletShootPos: {fileID: 6714626527859830685}
+  bulletShootPos: {fileID: 7767292613286764008}
   bulletPrefab: {fileID: 4453091012611864755, guid: 531b3453d907f074baa0dcfb334e6e21,
     type: 3}
   explodeEffectPrefab: {fileID: 5226211007877221470, guid: b76de7e885b3de048b1cac7026b157b9,
     type: 3}
   teleportSpeed: -10
   teleportState: 0
---- !u!1 &6714626527859830690
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6714626527859830685}
-  m_Layer: 9
-  m_Name: BulletShootPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6714626527859830685
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6714626527859830690}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6714626527013784865}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

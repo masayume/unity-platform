@@ -7,9 +7,9 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ScrewDriver_Blue
-  m_Controller: {fileID: 9100000, guid: 8178d891ed1dc47fb92414d8c85efa9e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 81ad9a3b3c731cd4a803febbe2472c93, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: dcef4be4ded2c35d4b25fc0fbed484cd, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 42b30322c3352617e9e63075e8aff339, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 9ec2848bf19d20ca2b9a26e4a6668e9e, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: e5433d30e2ac0cf25a0f586a87ae0ebb, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 3607b26e20b8c4244a6661b6abd5b6de, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5e50a3b63405c654c871f8c9d873ecba, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ea8c6b2280e16974fbf18c4dbe6e2ef7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2e81241d65b539243ac90319ffb10258, type: 2}

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -66,7 +66,7 @@ public class BlasterController : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         // blaster has only two states - closed and open
-        // while closed he's invincible and when open vulnerable
+        // while closed he's invicible and when open vulnerable
         // and fires four bullets at different vectors
         switch (blasterState)
         {
