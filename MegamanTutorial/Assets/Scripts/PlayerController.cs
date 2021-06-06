@@ -80,7 +80,11 @@ public class PlayerController : MonoBehaviour
 
 #if UNITY_STANDALONE
         // disable screen input canvas if not android or ios
-        GameObject.Find("InputCanvas").SetActive(false);
+        GameObject inputCanvas = GameObject.Find("InputCanvas");
+        if (inputCanvas != null)
+        {
+            inputCanvas.SetActive(false);
+        }
 #endif
     }
 
@@ -553,6 +557,13 @@ public class PlayerController : MonoBehaviour
     {
         // freeze/unfreeze user input
         freezeInput = freeze;
+        if (freeze)
+        {
+            keyHorizontal = 0;
+            keyVertical = 0;
+            keyJump = false;
+            keyShoot = false;
+        }
     }
 
     public void FreezePlayer(bool freeze)
@@ -640,5 +651,35 @@ public class PlayerController : MonoBehaviour
         keyJump = true;
         yield return new WaitForSeconds(0.01f);
         keyJump = false;
+    }
+
+    public void SimulateMoveStop()
+    {
+        // no horizontal input
+        keyHorizontal = 0f;
+    }
+
+    public void SimulateMoveLeft()
+    {
+        // value from pressing left on the keyboard
+        keyHorizontal = -1.0f;
+    }
+
+    public void SimulateMoveRight()
+    {
+        // value from pressing right on the keyboard
+        keyHorizontal = 1.0f;
+    }
+
+    public void SimulateShoot()
+    {
+        // use the existing shoot function
+        StartCoroutine(MobileShoot());
+    }
+
+    public void SimulateJump()
+    {
+        // use the existing jump function
+        StartCoroutine(MobileJump());
     }
 }

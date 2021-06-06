@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     public float gameRestartDelay = 5f;
     public float gamePlayerReadyDelay = 3f;
 
-    public enum GameStates { TitleScreen, MainScene };
+    public enum GameStates { TitleScreen, IntroScene, MainScene };
     public GameStates gameState = GameStates.TitleScreen;
 
     public struct WorldViewCoordinates
@@ -98,6 +98,9 @@ public class GameManager : MonoBehaviour
             case GameStates.TitleScreen:
                 StartTitleScreen();
                 break;
+            case GameStates.IntroScene:
+                StartIntroScene();
+                break;
             case GameStates.MainScene:
                 StartMainScene();
                 break;
@@ -118,6 +121,9 @@ public class GameManager : MonoBehaviour
             case GameStates.TitleScreen:
                 TitleScreenLoop();
                 break;
+            case GameStates.IntroScene:
+                IntroSceneLoop();
+                break;
             case GameStates.MainScene:
                 MainSceneLoop();
                 break;
@@ -137,6 +143,23 @@ public class GameManager : MonoBehaviour
     }
 
     private void TitleScreenLoop()
+    {
+        // scene change triggered by StartNextScene()
+        if (startNextScene)
+        {
+            // can do other things here before loading the next scene
+            startNextScene = false;
+            gameState = GameStates.IntroScene;
+            SceneManager.LoadScene("Intro Scene");
+        }
+    }
+
+    private void StartIntroScene()
+    {
+        // add any init code here for intro scene
+    }
+
+    private void IntroSceneLoop()
     {
         // scene change triggered by StartNextScene()
         if (startNextScene)

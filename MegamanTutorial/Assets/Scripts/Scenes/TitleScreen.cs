@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class TitleScreen : MonoBehaviour
 {
-    // access to our TextMeshPro object
-    TextMeshProUGUI tmpTitleText;
-
     // flag that we called for the next scene
     bool calledNextScene;
 
@@ -17,6 +14,9 @@ public class TitleScreen : MonoBehaviour
 
     // alpha color for keypress text
     int alphaKeyPressText = 255;
+
+    // access to our TextMeshPro object
+    TextMeshProUGUI tmpTitleText;
 
     // sound clip for key press
     public AudioClip keyPressClip;
