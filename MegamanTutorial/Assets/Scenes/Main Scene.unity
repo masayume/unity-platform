@@ -2034,7 +2034,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 7767292614704043848}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1840083802}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 736ec5c7521408c48bd0ba1e75b082b4, type: 3}
@@ -3025,7 +3025,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a3fd11aba90bf94e84127b97bf35791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showRunTime: 0
   musicClip: {fileID: 8300000, guid: 0dee54ac34cf88b46adc729c375c1296, type: 3}
+  player: {fileID: 1840083802}
+  hologram: {fileID: 1232387713}
+  startSeqBeginPoint: 5.6
+  startSeqEndPoint: 7
+  wallLeft: {fileID: 379198385}
+  checkpointTrigger: {fileID: 484232815}
+  wallLeftXPos: 11.5
+  levelState: 0
 --- !u!4 &1686078397
 Transform:
   m_ObjectHideFlags: 0
@@ -3318,6 +3327,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1840083802 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7767292614320373599, guid: c08c5459dc3ab7e41bd4d9e9cb0ef8a2,
+    type: 3}
+  m_PrefabInstance: {fileID: 7767292614704043848}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1842730986
 GameObject:
   m_ObjectHideFlags: 0
@@ -3861,7 +3876,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 290, y: -25}
+  m_AnchoredPosition: {x: 300, y: -30}
   m_SizeDelta: {x: 580, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2138314356
@@ -3948,7 +3963,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: -41.761215}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
