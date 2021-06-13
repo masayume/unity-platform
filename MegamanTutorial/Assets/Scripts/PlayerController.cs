@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class PlayerController : MonoBehaviour
     BoxCollider2D box2d;
     Rigidbody2D rb2d;
     SpriteRenderer sprite;
+
+    ColorSwap colorSwap;
 
     float keyHorizontal;
     float keyVertical;
@@ -32,6 +35,24 @@ public class PlayerController : MonoBehaviour
     bool keyShootRelease;
 
     RigidbodyConstraints2D rb2dConstraints;
+
+    private enum SwapIndex
+    {
+        Primary = 64,
+        Secondary = 128
+    }
+
+    public enum PlayerWeapons { Default, MagnetBeam, BombMan, CutMan, ElecMan, FireMan, GutsMan, IceMan };
+    public PlayerWeapons playerWeapon = PlayerWeapons.Default;
+
+    [System.Serializable]
+    public struct PlayerWeaponsStruct
+    {
+        public PlayerWeapons weapon;
+        public int currentEnergy;
+        public int maxEnergy;
+    }
+    public PlayerWeaponsStruct[] playerWeaponStructs;
 
     public int currentHealth;
     public int maxHealth = 28;
@@ -77,6 +98,18 @@ public class PlayerController : MonoBehaviour
 
         // start at full health
         currentHealth = maxHealth;
+
+        // start all energy bars at full
+        for (int i = 0; i < playerWeaponStructs.Length; i++)
+        {
+            playerWeaponStructs[i].currentEnergy = playerWeaponStructs[i].maxEnergy;
+        }
+
+        // color swap component to change megaman's palette
+        colorSwap = GetComponent<ColorSwap>();
+
+        // set player weapon (change color)
+        SetWeapon(playerWeapon);
 
 #if UNITY_STANDALONE
         // disable screen input canvas if not android or ios
@@ -215,8 +248,19 @@ public class PlayerController : MonoBehaviour
         // T for Teleport
         if (Input.GetKeyDown(KeyCode.T))
         {
+            SetWeapon((PlayerWeapons)UnityEngine.Random.Range(0,
+                Enum.GetValues(typeof(PlayerWeapons)).Length));
             Teleport(true);
             Debug.Log("Teleport(true)");
+        }
+
+        // #1 for random Enemy Health energy bar color
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            UIEnergyBars.Instance.SetImage(
+                UIEnergyBars.EnergyBars.EnemyHealth,
+                (UIEnergyBars.EnergyBarTypes)UnityEngine.Random.Range(0,
+                    Enum.GetValues(typeof(UIEnergyBars.EnergyBarTypes)).Length));
         }
     }
 
@@ -395,6 +439,125 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(0f, 180f, 0f);
     }
 
+    public void SetWeapon(PlayerWeapons weapon)
+    {
+        /* ColorSwap and Shader to change MegaMan's color scheme
+         * 
+         * his spritesheets have been altered to greyscale for his outfit
+         * Red 64 for the helmet, gloves, boots, etc ( SwapIndex.Primary )
+         * Red 128 for his shirt, pants, etc ( SwapIndex.Secondary )
+         * 
+         * couple ways to code this but I settled on #2
+         * 
+         * #1 using Lists
+         * 
+         * var colorIndex = new List<int>();
+         * var playerColors = new List<Color>();
+         * colorIndex.Add((int)SwapIndex.Primary);
+         * colorIndex.Add((int)SwapIndex.Secondary);
+         * playerColors.Add(ColorSwap.ColorFromIntRGB(64, 64, 64));
+         * playerColors.Add(ColorSwap.ColorFromIntRGB(128, 128, 128));
+         * colorSwap.SwapColors(colorIndex, playerColors);
+         * 
+         * #2 using SwapColor as needed then ApplyColor
+         * 
+         * colorSwap.SwapColor((int)SwapIndex.Primary, ColorSwap.ColorFromInt(0x0073F7));
+         * colorSwap.SwapColor((int)SwapIndex.Secondary, ColorSwap.ColorFromInt(0x00FFFF));
+         * colorSwap.ApplyColor();
+         * 
+         * Also, we'll change the color of our weapon energy bar
+         * and adjust the energy value as given in the playerWeaponsStruct
+         * 
+         */
+
+        // set new selected weapon (determines color scheme)
+        playerWeapon = weapon;
+
+        // calculate weapon energy value to adjust the bars
+        int currentEnergy = playerWeaponStructs[(int)playerWeapon].currentEnergy;
+        int maxEnergy = playerWeaponStructs[(int)playerWeapon].maxEnergy;
+        float weaponEnergyValue = (float)currentEnergy / (float)maxEnergy;
+
+        // apply new selected color scheme with ColorSwap and set weapon energy bar
+        switch (playerWeapon)
+        {
+            case PlayerWeapons.Default:
+                // dark blue, light blue
+                colorSwap.SwapColor((int)SwapIndex.Primary, ColorSwap.ColorFromInt(0x0073F7));
+                colorSwap.SwapColor((int)SwapIndex.Secondary, ColorSwap.ColorFromInt(0x00FFFF));
+                // the player weapon energy doesn't apply but we'll just set the default and hide it
+                UIEnergyBars.Instance.SetImage(UIEnergyBars.EnergyBars.PlayerWeapon, UIEnergyBars.EnergyBarTypes.PlayerLife);
+                UIEnergyBars.Instance.SetVisibility(UIEnergyBars.EnergyBars.PlayerWeapon, false);
+                break;
+            case PlayerWeapons.MagnetBeam:
+                // dark blue, light blue
+                colorSwap.SwapColor((int)SwapIndex.Primary, ColorSwap.ColorFromInt(0x0073F7));
+                colorSwap.SwapColor((int)SwapIndex.Secondary, ColorSwap.ColorFromInt(0x00FFFF));
+                // magnet beam energy and set visible
+                UIEnergyBars.Instance.SetImage(UIEnergyBars.EnergyBars.PlayerWeapon, UIEnergyBars.EnergyBarTypes.MagnetBeam);
+                UIEnergyBars.Instance.SetValue(UIEnergyBars.EnergyBars.PlayerWeapon, weaponEnergyValue);
+                UIEnergyBars.Instance.SetVisibility(UIEnergyBars.EnergyBars.PlayerWeapon, true);
+                break;
+            case PlayerWeapons.BombMan:
+                // green, light gray
+                colorSwap.SwapColor((int)SwapIndex.Primary, ColorSwap.ColorFromInt(0x009400));
+                colorSwap.SwapColor((int)SwapIndex.Secondary, ColorSwap.ColorFromInt(0xFCFCFC));
+                // bombman's hyper bomb weapon energy and set visible
+                UIEnergyBars.Instance.SetImage(UIEnergyBars.EnergyBars.PlayerWeapon, UIEnergyBars.EnergyBarTypes.HyperBomb);
+                UIEnergyBars.Instance.SetValue(UIEnergyBars.EnergyBars.PlayerWeapon, weaponEnergyValue);
+                UIEnergyBars.Instance.SetVisibility(UIEnergyBars.EnergyBars.PlayerWeapon, true);
+                break;
+            case PlayerWeapons.CutMan:
+                // dark gray, light gray
+                colorSwap.SwapColor((int)SwapIndex.Primary, ColorSwap.ColorFromInt(0x747474));
+                colorSwap.SwapColor((int)SwapIndex.Secondary, ColorSwap.ColorFromInt(0xFCFCFC));
+                // cutman's rolling cutter weapon energy and set visible
+                UIEnergyBars.Instance.SetImage(UIEnergyBars.EnergyBars.PlayerWeapon, UIEnergyBars.EnergyBarTypes.RollingCutter);
+                UIEnergyBars.Instance.SetValue(UIEnergyBars.EnergyBars.PlayerWeapon, weaponEnergyValue);
+                UIEnergyBars.Instance.SetVisibility(UIEnergyBars.EnergyBars.PlayerWeapon, true);
+                break;
+            case PlayerWeapons.ElecMan:
+                // dark gray, light yellow
+                colorSwap.SwapColor((int)SwapIndex.Primary, ColorSwap.ColorFromInt(0x747474));
+                colorSwap.SwapColor((int)SwapIndex.Secondary, ColorSwap.ColorFromInt(0xFCE4A0));
+                // elecman's thunderbeam weapon energy and set visible
+                UIEnergyBars.Instance.SetImage(UIEnergyBars.EnergyBars.PlayerWeapon, UIEnergyBars.EnergyBarTypes.ThunderBeam);
+                UIEnergyBars.Instance.SetValue(UIEnergyBars.EnergyBars.PlayerWeapon, weaponEnergyValue);
+                UIEnergyBars.Instance.SetVisibility(UIEnergyBars.EnergyBars.PlayerWeapon, true);
+                break;
+            case PlayerWeapons.FireMan:
+                // dark orange, yellow gold
+                colorSwap.SwapColor((int)SwapIndex.Primary, ColorSwap.ColorFromInt(0xD82800));
+                colorSwap.SwapColor((int)SwapIndex.Secondary, ColorSwap.ColorFromInt(0xF0BC3C));
+                // fireman's firestorm weapon energy and set visible
+                UIEnergyBars.Instance.SetImage(UIEnergyBars.EnergyBars.PlayerWeapon, UIEnergyBars.EnergyBarTypes.FireStorm);
+                UIEnergyBars.Instance.SetValue(UIEnergyBars.EnergyBars.PlayerWeapon, weaponEnergyValue);
+                UIEnergyBars.Instance.SetVisibility(UIEnergyBars.EnergyBars.PlayerWeapon, true);
+                break;
+            case PlayerWeapons.GutsMan:
+                // orange red, light gray
+                colorSwap.SwapColor((int)SwapIndex.Primary, ColorSwap.ColorFromInt(0xC84C0C));
+                colorSwap.SwapColor((int)SwapIndex.Secondary, ColorSwap.ColorFromInt(0xFCFCFC));
+                // gutman's super arm weapon energy and set visible
+                UIEnergyBars.Instance.SetImage(UIEnergyBars.EnergyBars.PlayerWeapon, UIEnergyBars.EnergyBarTypes.SuperArm);
+                UIEnergyBars.Instance.SetValue(UIEnergyBars.EnergyBars.PlayerWeapon, weaponEnergyValue);
+                UIEnergyBars.Instance.SetVisibility(UIEnergyBars.EnergyBars.PlayerWeapon, true);
+                break;
+            case PlayerWeapons.IceMan:
+                // dark blue, light gray
+                colorSwap.SwapColor((int)SwapIndex.Primary, ColorSwap.ColorFromInt(0x2038EC));
+                colorSwap.SwapColor((int)SwapIndex.Secondary, ColorSwap.ColorFromInt(0xFCFCFC));
+                // iceman's ice slasher weapon energy and set visible
+                UIEnergyBars.Instance.SetImage(UIEnergyBars.EnergyBars.PlayerWeapon, UIEnergyBars.EnergyBarTypes.IceSlasher);
+                UIEnergyBars.Instance.SetValue(UIEnergyBars.EnergyBars.PlayerWeapon, weaponEnergyValue);
+                UIEnergyBars.Instance.SetVisibility(UIEnergyBars.EnergyBars.PlayerWeapon, true);
+                break;
+        }
+
+        // apply the color changes
+        colorSwap.ApplyColor();
+    }
+
     public void ApplyLifeEnergy(int amount)
     {
         // only apply health if we need it
@@ -416,7 +579,7 @@ public class PlayerController : MonoBehaviour
         {
             currentHealth++;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-            UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
+            UIEnergyBars.Instance.SetValue(UIEnergyBars.EnergyBars.PlayerHealth, currentHealth / (float)maxHealth);
             yield return new WaitForSeconds(0.05f);
         }
         // done playing energy fill clip
@@ -461,7 +624,7 @@ public class PlayerController : MonoBehaviour
             // take damage amount from health and update the health bar
             currentHealth -= damage;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-            UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
+            UIEnergyBars.Instance.SetValue(UIEnergyBars.EnergyBars.PlayerHealth, currentHealth / (float)maxHealth);
             // no more health means defeat, otherwise take damage
             if (currentHealth <= 0)
             {
@@ -509,18 +672,22 @@ public class PlayerController : MonoBehaviour
         // hit animation is 12 samples
         // keep flashing consistent with 1/12 secs
         float flashDelay = 0.0833f;
+        // get sprite's current material
+        //Material material = sprite.material;
         // toggle transparency
         for (int i = 0; i < 10; i++)
         {
             //sprite.enabled = false;
             //sprite.material = null;
+            sprite.material.SetFloat("_Transparency", 0f);
             //sprite.color = new Color(1, 1, 1, 0);
-            sprite.color = Color.clear;
+            //sprite.color = Color.clear;
             yield return new WaitForSeconds(flashDelay);
             //sprite.enabled = true;
-            //sprite.material = new Material(Shader.Find("Sprites/Default"));
+            //sprite.material = material; // new Material(Shader.Find("Sprites/Default"));
+            sprite.material.SetFloat("_Transparency", 1f);
             //sprite.color = new Color(1, 1, 1, 1);
-            sprite.color = Color.white;
+            //sprite.color = Color.white;
             yield return new WaitForSeconds(flashDelay);
         }
         // no longer invincible

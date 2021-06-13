@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 7767292614320373585}
   - component: {fileID: 7767292614320373584}
   - component: {fileID: 7767292614320373589}
+  - component: {fileID: 4161001639088418588}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -81,10 +82,11 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 81f224315829d688e930e7a0921561b4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -195,6 +197,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 736ec5c7521408c48bd0ba1e75b082b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerWeapon: 0
+  playerWeaponStructs:
+  - weapon: 0
+    currentEnergy: 28
+    maxEnergy: 28
+  - weapon: 2
+    currentEnergy: 28
+    maxEnergy: 28
+  - weapon: 3
+    currentEnergy: 28
+    maxEnergy: 28
+  - weapon: 4
+    currentEnergy: 28
+    maxEnergy: 28
+  - weapon: 5
+    currentEnergy: 28
+    maxEnergy: 28
+  - weapon: 6
+    currentEnergy: 28
+    maxEnergy: 28
+  - weapon: 7
+    currentEnergy: 28
+    maxEnergy: 28
+  - weapon: 1
+    currentEnergy: 28
+    maxEnergy: 28
   currentHealth: 0
   maxHealth: 28
   moveSpeed: 1.5
@@ -214,3 +242,15 @@ MonoBehaviour:
     type: 3}
   teleportSpeed: -10
   teleportState: 0
+--- !u!114 &4161001639088418588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7767292614320373599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9d622569d0ec5a299d5a156953c58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
