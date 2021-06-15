@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 // all enemies will require these components
 [RequireComponent(typeof(Animator))]
@@ -48,6 +49,11 @@ public class EnemyController : MonoBehaviour
     public GameObject bulletShootPos;
     public GameObject bulletPrefab;
     public GameObject explodeEffectPrefab;
+    public float explodeEffectDestroyDelay = 2f;
+
+    [Header("Enemy Events")]
+    public UnityEvent TakeDamageEvent;
+    public UnityEvent DefeatEvent;
 
     void Awake()
     {
@@ -80,6 +86,8 @@ public class EnemyController : MonoBehaviour
         // take damage if not invincible
         if (!isInvincible)
         {
+            // invoke take damage event
+            TakeDamageEvent.Invoke();
             // take damage amount from health and call defeat if no health
             currentHealth -= damage;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
@@ -100,12 +108,12 @@ public class EnemyController : MonoBehaviour
     {
         // play explosion animation
         //   create copy of prefab, place its spawn location at center of sprite, 
-        //   set explosion damage value (if any), destroy after two seconds
+        //   set explosion damage value (if any), destroy after explodeEffectDestroyDelay
         explodeEffect = Instantiate(explodeEffectPrefab);
         explodeEffect.name = explodeEffectPrefab.name;
         explodeEffect.transform.position = sprite.bounds.center;
         explodeEffect.GetComponent<ExplosionScript>().SetDamageValue(this.explosionDamage);
-        Destroy(explodeEffect, 2f);
+        Destroy(explodeEffect, explodeEffectDestroyDelay);
 
         // get the bonus item prefab
         GameObject bonusItemPrefab = GameManager.Instance.GetBonusItem(bonusItemType);
@@ -132,6 +140,8 @@ public class EnemyController : MonoBehaviour
 
     void Defeat()
     {
+        // invoke defeat event
+        DefeatEvent.Invoke();
         // play explosion animation, remove enemy, give player score points
         StartDefeatAnimation();
         Destroy(gameObject);

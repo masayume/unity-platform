@@ -56,4 +56,31 @@ public class UtilityFunctions : MonoBehaviour
     {
         return (runTime >= endTime);
     }
+
+    // Source: YouTube video by Sebastian Lague
+    // Kinematic Equations (E03: ball problem)
+    // https://www.youtube.com/watch?v=IvT8hjy6q4o
+    public static LaunchData CalculateLaunchData(Vector3 source, Vector3 target, float height, float gravity)
+    {
+        float displacementY = target.y - source.y;
+        Vector3 displacementXZ = new Vector3(target.x - source.x, 0, target.z - source.z);
+        float time = Mathf.Sqrt(-2 * height / gravity) + Mathf.Sqrt(2 * (displacementY - height) / gravity);
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * height);
+        Vector3 velocityXZ = displacementXZ / time;
+
+        return new LaunchData(velocityXZ + velocityY * -Mathf.Sign(gravity), time);
+    }
+
+    public struct LaunchData
+    {
+        public readonly Vector3 initialVelocity;
+        public readonly float timeToTarget;
+
+        public LaunchData(Vector3 initialVelocity, float timeToTarget)
+        {
+            this.initialVelocity = initialVelocity;
+            this.timeToTarget = timeToTarget;
+        }
+    }
+
 }

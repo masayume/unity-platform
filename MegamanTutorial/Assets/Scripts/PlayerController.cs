@@ -51,6 +51,9 @@ public class PlayerController : MonoBehaviour
         public PlayerWeapons weapon;
         public int currentEnergy;
         public int maxEnergy;
+        public int energyCost;
+        public int weaponDamage;
+        public GameObject weaponPrefab;
     }
     public PlayerWeaponsStruct[] playerWeaponStructs;
 
@@ -605,6 +608,7 @@ public class PlayerController : MonoBehaviour
         bullet.GetComponent<BulletScript>().Shoot();
         SoundManager.Instance.Play(shootBulletClip);
     }
+
     public void HitSide(bool rightSide)
     {
         // determines the push direction of the hit animation
