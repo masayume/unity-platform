@@ -74,10 +74,7 @@ public class ItemScript : MonoBehaviour
         Animate(animate);
 
         // if there is a delay set then apply it
-        if (destroyDelay > 0)
-        {
-            SetDestroyDelay(destroyDelay);
-        }
+        SetDestroyDelay(destroyDelay);
 
         // set bonus ball color
         if (itemType == ItemTypes.BonusBall)
@@ -108,7 +105,11 @@ public class ItemScript : MonoBehaviour
 
     public void SetDestroyDelay(float delay)
     {
-        Destroy(gameObject, delay);
+        destroyDelay = delay;
+        if (delay > 0)
+        {
+            Destroy(gameObject, delay);
+        }
     }
 
     public void SetBonusBallColor(BonusBallColors color)
